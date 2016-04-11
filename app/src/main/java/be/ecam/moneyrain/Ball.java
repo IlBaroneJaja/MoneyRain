@@ -1,4 +1,4 @@
-package xyz.lurkin.startgame;
+package be.ecam.moneyrain;
 
 /**
  * Created by lur on 11-04-16.

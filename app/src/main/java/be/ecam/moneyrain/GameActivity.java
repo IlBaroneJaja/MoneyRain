@@ -1,4 +1,4 @@
-package xyz.lurkin.startgame;
+package be.ecam.moneyrain;
 
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;

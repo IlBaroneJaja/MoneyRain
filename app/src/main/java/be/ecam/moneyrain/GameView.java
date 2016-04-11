@@ -1,4 +1,4 @@
-package xyz.lurkin.startgame;
+package be.ecam.moneyrain;
 
 import android.content.Context;
 import android.graphics.Canvas;

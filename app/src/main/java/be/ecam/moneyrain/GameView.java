@@ -1,6 +1,8 @@
 package be.ecam.moneyrain;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
@@ -19,7 +21,7 @@ public class GameView extends View {
         super(context, aSet);
 
         mPaint = new Paint();
-        mBall = new Ball(20, 20, 10, 10, 10);
+        mBall = new Ball(20, 20, 10, 10, 10, BitmapFactory.decodeResource(getResources(),R.drawable.bomb_test));
     }
 
     public void next() {
@@ -33,7 +35,7 @@ public class GameView extends View {
 
     @Override
     synchronized public void onDraw(Canvas canvas) {
-        canvas.drawCircle(mBall.x, mBall.y, mBall.radius, mPaint);
+        canvas.drawBitmap(mBall.image, mBall.x, mBall.y, null);
     }
 
 }

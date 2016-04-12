@@ -9,7 +9,7 @@ public class GameActivity extends AppCompatActivity {
 
     private GameView mGameView;
     private Handler frameHandler;
-    private static final int FRAME_RATE = 20; //50 frames per second
+    private static final int FRAME_RATE = 25;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

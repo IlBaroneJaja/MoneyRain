@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Money Rain</string>
+    <string name="start">START</string>
+    <string name="string_play" />
+    <string name="scores">SCORES</string>
+    <string name="string_scores" />
+    <string name="settings">SETTINGS</string>
+    <string name="string_settings" />
 </resources>

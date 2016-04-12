@@ -10,9 +10,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:screenOrientation="portrait"
-            android:name="be.ecam.moneyrain.GameActivity">
-        <activity android:name=".GameActivity">
-        <activity android:name=".StartUpActivity">
+            android:name="be.ecam.moneyrain.GameActivity"></activity>
+        <activity android:name="be.ecam.moneyrain.StartUpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

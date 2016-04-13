@@ -11,6 +11,7 @@ import android.graphics.Point;
 public abstract class Drawable {
     protected Resources res;
     protected Bitmap image;
+    protected Point imageSize;
     protected Point position;
 
     public Drawable(Resources res, Point position){

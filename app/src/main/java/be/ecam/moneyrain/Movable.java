@@ -9,9 +9,27 @@ import android.graphics.Point;
 public abstract class Movable extends Drawable {
     protected Point speed;
 
-    Movable (Resources res, Point position, int vx, int vy){
+    Movable (Resources res, Point position, Point speed){
         super(res, position);
-        this.speed.x = vx;
-        this.speed.y = vy;
+        this.speed = speed;
+    }
+
+    public void move(int width, int height){
+        checkCollision(width, height);
+        position.x += speed.x;
+        position.y += speed.y;
+    }
+
+    public String checkCollision(int width, int height){
+        if(position.x > width-imageSize.x)
+            return "right";
+        else if(position.x < 0)
+            return "left";
+        else if(position.y > height-imageSize.y)
+            return "bottom";
+        else if(position.y < 0)
+            return "top";
+        else
+            return "none";
     }
 }

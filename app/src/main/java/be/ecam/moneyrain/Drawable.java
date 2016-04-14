@@ -12,11 +12,14 @@ public abstract class Drawable {
     protected Resources res;
     protected Bitmap image;
     protected Point imageSize;
+    protected Point screenSize;
     protected Point position;
 
-    public Drawable(Resources res, Point position){
+    public Drawable(Resources res, Point screenSize, Point position){
         this.res = res;
+        this.screenSize = screenSize;
         this.position = position;
+
         setImage();
     }
 

@@ -2,12 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:weightSum="1">
 
     <be.ecam.moneyrain.GameView
         android:id="@+id/gameview"
+        android:background="@drawable/background"
         android:layout_width="match_parent"
-        android:layout_height="440dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="135dp"
         android:layout_gravity="center_horizontal|top" />
 
     <RelativeLayout
@@ -16,14 +18,11 @@
         android:layout_height="135dp"
         android:layout_gravity="center_horizontal|bottom"
         android:background="#0a25c1"
-        android:weightSum="1"
         android:id="@+id/scoreLayout">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/heart"
-            android:src="@drawable/heart"
             android:layout_marginLeft="34dp"
             android:layout_marginStart="34dp"
             android:layout_centerVertical="true"
@@ -39,9 +38,7 @@
             android:textSize="10pt"
             android:textColor="#ffffff"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/heart"
-            android:layout_marginLeft="5dp"
-            android:layout_toEndOf="@+id/heart" />
+            android:layout_marginLeft="5dp" />
 
         <TextView
             android:layout_width="wrap_content"

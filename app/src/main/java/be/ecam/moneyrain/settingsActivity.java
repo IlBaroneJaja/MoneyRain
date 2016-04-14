@@ -3,7 +3,7 @@ package be.ecam.moneyrain;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class settingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

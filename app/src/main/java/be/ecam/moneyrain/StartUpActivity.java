@@ -36,11 +36,11 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
             case R.id.btn_scores:
-                intent = new Intent(StartUpActivity.this, scoreActivity.class);
+                intent = new Intent(StartUpActivity.this, ScoreActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_settings:
-                intent = new Intent(StartUpActivity.this, settingsActivity.class);
+                intent = new Intent(StartUpActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 break;
         }

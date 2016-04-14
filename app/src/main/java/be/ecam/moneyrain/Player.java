@@ -10,31 +10,33 @@ import android.graphics.Point;
 public class Player extends Movable {
     private boolean pushing;
 
-    public Player(Resources res, Point point, Point speed){
-        super(res, point, speed);
-        imageSize = new Point(100, 100);
+    public Player(Resources res, Point screenSize, Point position,Point speed){
+        super(res, screenSize, position, speed);
+        imageSize = new Point(79, 94);
+        this.position.x = screenSize.x/2;
+        this.position.y = screenSize.y-imageSize.y;
         pushing = false;
     }
 
     @Override
     protected void setImage() {
-        image = BitmapFactory.decodeResource(res,R.drawable.persoSmall);
+        image = BitmapFactory.decodeResource(res,R.drawable.persosmall);
     }
 
-    public  void move(int width, int height){
+    public void move(){
         if (pushing)
-            moveRight(width, height);
+            moveRight();
         else
-            moveLeft(width, height);
+            moveLeft();
     }
 
-    public void moveRight(int width, int height){
-        if(checkCollision(width, height) != "right")
+    public void moveRight(){
+        if(checkCollision() != "right")
             position.x += speed.x;
     }
 
-    public void moveLeft(int width, int height){
-        if(checkCollision(width, height) != "left")
+    public void moveLeft(){
+        if(checkCollision() != "left")
             position.x += -speed.x;
     }
 

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="be.ecam.moneyrain.settingsActivity"
+    android:background="@drawable/background"
+    android:focusable="true">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:id="@+id/tvSettingsTitle"
+        android:width="200dp"
+        android:height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#1021be"
+        android:textStyle="bold|italic"
+        android:textSize="25pt"
+        android:textIsSelectable="true"
+        android:textAlignment="center"
+        android:typeface="monospace" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LEVEL"
+        android:id="@+id/tvLevel"
+        android:textAlignment="center"
+        android:layout_alignWithParentIfMissing="false"
+        android:textColor="#0b11b4"
+        android:backgroundTint="#0f46bb"
+        android:textStyle="bold"
+        android:typeface="sans"
+        android:textSize="8pt"
+        android:layout_below="@+id/tvSettingsTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Beggar"
+        android:id="@+id/btn_level"
+        android:width="200dp"
+        android:height="50dp"
+        android:textAlignment="center"
+        android:layout_alignWithParentIfMissing="false"
+        android:textColor="#ffffff"
+        android:backgroundTint="#0f23bb"
+        android:textSize="10pt"
+        android:typeface="sans"
+        android:textStyle="bold"
+        android:layout_below="@+id/tvLevel"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        android:id="@+id/btn_soundReset"
+        android:width="200dp"
+        android:height="50dp"
+        android:textAlignment="center"
+        android:layout_alignWithParentIfMissing="false"
+        android:textColor="#ffffff"
+        android:backgroundTint="#0f23bb"
+        android:textSize="10pt"
+        android:typeface="sans"
+        android:textStyle="bold"
+        android:layout_below="@+id/tvSound"
+        android:layout_alignLeft="@+id/btn_level" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SOUND"
+        android:id="@+id/switchSound"
+        android:checked="false"
+        android:textSize="12pt"
+        android:textStyle="bold"
+        android:textColor="#0e16b5"
+        android:typeface="normal"
+        android:layout_marginTop="71dp"
+        android:layout_below="@+id/btn_level"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HIGH SCORES"
+        android:id="@+id/tvSound"
+        android:textAlignment="center"
+        android:layout_alignWithParentIfMissing="false"
+        android:textColor="#0b11b4"
+        android:backgroundTint="#0f46bb"
+        android:textStyle="bold"
+        android:typeface="sans"
+        android:textSize="8pt"
+        android:layout_marginTop="77dp"
+        android:layout_below="@+id/switchSound"
+        android:layout_alignLeft="@+id/switchSound"
+        android:layout_alignStart="@+id/switchSound" />
+
+</RelativeLayout>
+

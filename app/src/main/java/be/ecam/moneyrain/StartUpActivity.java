@@ -9,6 +9,8 @@ import android.widget.Button;
 public class StartUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btn_start;
+    private Button btn_scores;
+    private Button btn_settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +18,12 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_start_up);
 
         btn_start = (Button) findViewById(R.id.btn_start);
+        btn_scores = (Button) findViewById(R.id.btn_scores);
+        btn_settings = (Button) findViewById(R.id.btn_settings);
         btn_start.setOnClickListener(this);
+        btn_scores.setOnClickListener(this);
+        btn_settings.setOnClickListener(this);
+
     }
 
     @Override
@@ -29,7 +36,11 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
             case R.id.btn_scores:
-                Intent intent = new Intent(StartUpActivity.this, scoreActivity.class);
+                intent = new Intent(StartUpActivity.this, scoreActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_settings:
+                intent = new Intent(StartUpActivity.this, settingsActivity.class);
                 startActivity(intent);
                 break;
         }

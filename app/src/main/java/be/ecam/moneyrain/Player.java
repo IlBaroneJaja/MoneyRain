@@ -12,13 +12,13 @@ public class Player extends Movable {
 
     public Player(Resources res, Point point, Point speed){
         super(res, point, speed);
-        imageSize = new Point(84, 98);
+        imageSize = new Point(100, 100);
         pushing = false;
     }
 
     @Override
     protected void setImage() {
-        image = BitmapFactory.decodeResource(res,R.drawable.bombe);
+        image = BitmapFactory.decodeResource(res,R.drawable.perso);
     }
 
     public  void move(int width, int height){

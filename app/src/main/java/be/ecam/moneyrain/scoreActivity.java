@@ -8,11 +8,12 @@ public class scoreActivity extends AppCompatActivity {
 
     private SharedPreferences prefs;
     public static final String GAME_SCORES = "highScores";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
-        prefs = getSharedPreferences(GAME_SCORES,0);
+//      prefs = getSharedPreferences(GAME_SCORES,0);
 
     }
 }

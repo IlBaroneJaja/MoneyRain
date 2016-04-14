@@ -1,13 +1,17 @@
 package be.ecam.moneyrain;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 /**
  * Created by lur on 11-04-16.
@@ -17,21 +21,20 @@ public class GameView extends View {
     private Background background;
     Paint mPaint;
     private Ball mBall;
-    private int score;
-    private int highScore;
     private Ball mBall2;
     private Player player;
     private boolean pushing = false;
 
-
     public GameView(Context context, AttributeSet aSet) {
         super(context, aSet);
-
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics); // donne les dimensions actuelles (dynamique) du device
         mPaint = new Paint();
         background = new Background(getResources());
         mBall = new Ball(150, 150, 0, 2, 2, BitmapFactory.decodeResource(getResources(),R.drawable.piece));
         mBall2 = new Ball(300, 200, 0, -3, -3, BitmapFactory.decodeResource(getResources(),R.drawable.billet));
-        player = new Player(getResources(), new Point(200, 500), new Point(5, 0));
+        player = new Player(getResources(), new Point(displaymetrics.widthPixels/2,300), new Point(5, 0));
+
     }
 
     public void next() {
@@ -48,44 +51,6 @@ public class GameView extends View {
         player.move(getWidth(), getHeight());
         invalidate();
     }
-
-//   /* TODO
-//    public void onExit() // le joueur souhaite revenir au menu principal
-//    {
-//        setHighScore();
-//        super.onDestroy();
-//    }*/
-//
-//    public int computeScore()
-//    {
-//        int score = getScore();
-//        /* TODO
-//        if (objet touche personnage) // implémenter un listener à chaque collision d'objet
-//        {
-//            if (objet instanceof R.drawable.piece)
-//                score += 10;
-//            if (objet instanceof R.drawable.billet)
-//                score += 100;
-//
-//        }
-//        */
-//        setScore(score);
-//        return score;
-//    }
-//    public int getScore()
-//    {
-//        return score;
-//    }
-//
-//    public void setScore(int score)
-//    {
-//        this.score += score;
-//    }
-//
-//    public void setHighScore(int score)
-//    {
-//        this.highScore = score;
-//    }
 
     public boolean onTouchEvent(MotionEvent event){
         if(event.getAction() == MotionEvent.ACTION_DOWN ){

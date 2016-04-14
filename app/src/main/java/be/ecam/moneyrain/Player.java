@@ -18,7 +18,7 @@ public class Player extends Movable {
 
     @Override
     protected void setImage() {
-        image = BitmapFactory.decodeResource(res,R.drawable.bombe);
+        image = BitmapFactory.decodeResource(res,R.drawable.persoSmall);
     }
 
     public  void move(int width, int height){

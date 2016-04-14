@@ -27,8 +27,8 @@ public class GameView extends View {
 
         mPaint = new Paint();
         background = new Background(getResources());
-        mBall = new Ball(150, 150, 0, 2, 2, BitmapFactory.decodeResource(getResources(),R.drawable.piece));
-        mBall2 = new Ball(300, 200, 0, -3, -3, BitmapFactory.decodeResource(getResources(),R.drawable.billet));
+        mBall = new Ball(150, 150, 0, 2, 2, BitmapFactory.decodeResource(getResources(),R.drawable.pieceSmall));
+        mBall2 = new Ball(300, 200, 0, -3, -3, BitmapFactory.decodeResource(getResources(),R.drawable.billetSmall));
         player = new Player(getResources(), new Point(200, 500), new Point(5, 0));
     }
 

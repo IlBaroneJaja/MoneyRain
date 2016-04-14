@@ -13,49 +13,32 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/start"
         android:id="@+id/btn_start"
-        android:height="70dp"
-        android:width="160dp"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        android:background="#0f47c1"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="200dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/btn_scores"
-        android:layout_alignStart="@+id/btn_scores" />
+        android:background="@drawable/buttonstart"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:focusable="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/scores"
         android:id="@+id/btn_scores"
-        android:height="70dp"
-        android:width="160dp"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        android:background="#0f47c1"
-        android:textColor="#ffffff"
+        android:background="@drawable/buttonscores"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/btn_start"
         android:layout_alignLeft="@+id/btn_settings"
-        android:layout_alignStart="@+id/btn_settings" />
+        android:layout_alignStart="@+id/btn_settings"
+        android:focusable="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/settings"
         android:id="@+id/btn_settings"
-        android:height="70dp"
-        android:width="160dp"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        android:background="#0f47c1"
-        android:textColor="#ffffff"
+        android:background="@drawable/buttonsettings"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/btn_scores"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:focusable="true" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,20 +52,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Ecam - 2016                              A. VAN BERS                                   L. GOSSELIN                                 A.VASSALLI"
+        android:text="Ecam - 2016 A. VAN BERS, L. GOSSELIN, A.VASSALLI"
         android:id="@+id/textView"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/btn_settings"
         android:autoText="false"
         android:textAlignment="center"
-        android:layout_marginTop="10dp"
         android:textColor="#1029a4"
         android:textStyle="bold|italic"
-        android:textSize="9pt"
+        android:textSize="5pt"
         android:typeface="monospace"
-        android:layout_alignLeft="@+id/btn_settings"
-        android:layout_alignStart="@+id/btn_settings"
-        android:layout_alignRight="@+id/btn_settings"
-        android:layout_alignEnd="@+id/btn_settings" />
+        android:layout_below="@+id/imageView"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView" />
 
 </RelativeLayout>

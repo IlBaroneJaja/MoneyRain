@@ -12,7 +12,7 @@ public class Player extends Movable {
 
     public Player(Resources res, Point point, Point speed){
         super(res, point, speed);
-        imageSize = new Point(84, 98);
+        imageSize = new Point(100, 100);
         pushing = false;
     }
 

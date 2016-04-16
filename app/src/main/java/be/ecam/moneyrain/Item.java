@@ -2,6 +2,7 @@ package be.ecam.moneyrain;
 
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Point;
 
 /**
@@ -10,8 +11,8 @@ import android.graphics.Point;
 public class Item extends Movable {
     private int imageID;
 
-    public Item(Resources res, Point screenSize, Point position, Point speed, int imageID, Point imageSize){
-        super(res, screenSize, position, speed);
+    public Item(Point screenSize, Point position, Point speed, int imageID, Point imageSize){
+        super(screenSize, position, speed);
         this.imageID = imageID;
         this.imageSize = imageSize;
         setImage();
@@ -19,7 +20,7 @@ public class Item extends Movable {
 
     @Override
     protected void setImage() {
-        image = BitmapFactory.decodeResource(res,imageID);
+        image = BitmapFactory.decodeResource(GameView.res,imageID);
     }
 
     @Override
@@ -32,5 +33,9 @@ public class Item extends Movable {
             return true;
         else
             return false;
+    }
+
+    public int getImageID(){
+        return imageID;
     }
 }

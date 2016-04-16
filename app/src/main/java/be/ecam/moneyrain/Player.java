@@ -1,7 +1,7 @@
 package be.ecam.moneyrain;
 
-import android.content.res.Resources;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Point;
 
 /**
@@ -10,8 +10,8 @@ import android.graphics.Point;
 public class Player extends Movable {
     private boolean pushing;
 
-    public Player(Resources res, Point screenSize, Point position,Point speed){
-        super(res, screenSize, position, speed);
+    public Player(Point screenSize, Point position, Point speed){
+        super(screenSize, position, speed);
         imageSize = new Point(79, 94);
         this.position.x = screenSize.x/2;
         this.position.y = screenSize.y-imageSize.y;
@@ -20,7 +20,7 @@ public class Player extends Movable {
 
     @Override
     protected void setImage() {
-        image = BitmapFactory.decodeResource(res,R.drawable.persosmall);
+        image = BitmapFactory.decodeResource(GameView.res,R.drawable.persosmall);
     }
 
     public void move(){
@@ -45,5 +45,15 @@ public class Player extends Movable {
             pushing = false;
         else
             pushing = true;
+    }
+
+    public boolean itemCaught(Item item){
+        Point itemPos = new Point(item.getPosition());
+        Point itemSize = new Point(item.getImageSize());
+
+        if( itemPos.y+itemSize.y > position.y && itemPos.x+itemSize.x > position.x && itemPos.x < (position.x+imageSize.x) )
+            return true;
+        else
+            return false;
     }
 }

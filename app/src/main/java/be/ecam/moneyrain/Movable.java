@@ -1,6 +1,7 @@
 package be.ecam.moneyrain;
 
 import android.content.res.Resources;
+import android.graphics.Canvas;
 import android.graphics.Point;
 
 /**
@@ -9,8 +10,8 @@ import android.graphics.Point;
 public abstract class Movable extends Drawable {
     protected Point speed;
 
-    Movable (Resources res, Point screenSize, Point position, Point speed){
-        super(res, screenSize, position);
+    Movable (Point screenSize, Point position, Point speed){
+        super(screenSize, position);
         this.speed = speed;
     }
 

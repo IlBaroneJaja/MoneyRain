@@ -9,17 +9,14 @@ import android.graphics.Point;
  * Created by aurel on 12/04/2016.
  */
 public abstract class Drawable {
-    protected Resources res;
     protected Bitmap image;
     protected Point imageSize;
     protected Point screenSize;
     protected Point position;
 
-    public Drawable(Resources res, Point screenSize, Point position){
-        this.res = res;
+    public Drawable(Point screenSize, Point position){
         this.screenSize = screenSize;
         this.position = position;
-
         setImage();
     }
 
@@ -27,5 +24,13 @@ public abstract class Drawable {
 
     protected void draw(Canvas canvas){
         canvas.drawBitmap(image, position.x, position.y, null);
+    }
+
+    public Point getPosition(){
+        return position;
+    }
+
+    public Point getImageSize(){
+        return imageSize;
     }
 }

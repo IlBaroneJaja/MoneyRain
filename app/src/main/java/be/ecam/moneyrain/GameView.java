@@ -2,6 +2,7 @@ package be.ecam.moneyrain;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -16,13 +17,21 @@ import android.view.View;
  */
 public class GameView extends View {
     private Player player;
-    private Item billet;
+    private Items items;
     private boolean firstLoad = true;
+    public static Resources res;
 
     public GameView(Context context, AttributeSet aSet) {
         super(context, aSet);
         DisplayMetrics displaymetrics = new DisplayMetrics();
         ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics); // donne les dimensions actuelles (dynamique) du device
+        this.res = getResources();
+    }
+
+    private void initElements(Canvas canvas){
+        items = new Items(canvas);
+        player = new Player(new Point(canvas.getWidth(), canvas.getHeight()), new Point(0, 0), new Point(5, 0));
+        firstLoad = false;
     }
 
     public void next() {
@@ -30,33 +39,31 @@ public class GameView extends View {
             invalidate();
         else {
             player.move();
-            if (!billet.isOutOfScreen())
-                billet.move();
-
+            items.update(player);
             invalidate();
         }
     }
 
     public boolean onTouchEvent(MotionEvent event){
-        if(event.getAction() == MotionEvent.ACTION_DOWN ){
-            player.setPushing();
-            return true;
+        if(!firstLoad) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                player.setPushing();
+                return true;
+            } else if (event.getAction() == MotionEvent.ACTION_UP)
+                player.setPushing();
+            return super.onTouchEvent(event);
         }
-        else if(event.getAction() == MotionEvent.ACTION_UP )
-            player.setPushing();
-        return  super.onTouchEvent(event);
+        else
+            return super.onTouchEvent(event);
     }
 
     @Override
     synchronized public void onDraw(Canvas canvas) {
         if(firstLoad) {
-            firstLoad = false;
-            billet = new Item(getResources(), new Point(canvas.getWidth(), canvas.getHeight()), new Point(100, 0), new Point(0, 5), R.drawable.billetsmall, new Point(49, 23));
-            player = new Player(getResources(), new Point(canvas.getWidth(), canvas.getHeight()), new Point(0, 0), new Point(5, 0));
+            initElements(canvas);
         }
         else {
-            if (!billet.isOutOfScreen())
-                billet.draw(canvas);
+            items.draw(canvas);
             player.draw(canvas);
         }
     }

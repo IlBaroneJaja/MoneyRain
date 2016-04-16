@@ -14,7 +14,7 @@ public class GameActivity extends AppCompatActivity {
 
     private GameView mGameView;
     private Handler frameHandler;
-    private static final int FRAME_RATE = 15;
+    private static final int FRAME_RATE = 16;
     private String level;
 
     @Override

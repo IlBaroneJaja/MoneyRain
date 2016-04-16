@@ -21,10 +21,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".scoreActivity"
+            android:name=".ScoreActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".settingsActivity"
+            android:name=".SettingsActivity"
             android:screenOrientation="portrait" />
         <service
             android:enabled="true"

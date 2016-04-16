@@ -10,6 +10,20 @@
         android:layout_height="440dp"
         android:layout_gravity="center_horizontal|top" />
 
+    <TextView
+        android:layout_width="284dp"
+        android:layout_height="163dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Let&apos;s go !"
+        android:id="@+id/letsGO"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textColor="#261bc3"
+        android:textSize="25pt"
+        android:textStyle="bold|italic"
+        android:typeface="serif"
+        android:visibility="invisible" />
+
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

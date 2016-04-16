@@ -2,6 +2,7 @@ package be.ecam.moneyrain;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -25,10 +26,13 @@ public class GameView extends View {
     private Player player;
     private boolean pushing = false;
 
+
     public GameView(Context context, AttributeSet aSet) {
         super(context, aSet);
         DisplayMetrics displaymetrics = new DisplayMetrics();
         ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics); // donne les dimensions actuelles (dynamique) du device
+
+
         mPaint = new Paint();
         background = new Background(getResources());
         mBall = new Ball(150, 150, 0, 2, 2, BitmapFactory.decodeResource(getResources(),R.drawable.piece));

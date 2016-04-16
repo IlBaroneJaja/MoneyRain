@@ -1,16 +1,18 @@
 package be.ecam.moneyrain;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
 
-public class StartUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class StartUpActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button btn_start;
     private Button btn_scores;
     private Button btn_settings;
+    public static final String settings = "sharedSettings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,14 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
         btn_scores.setOnClickListener(this);
         btn_settings.setOnClickListener(this);
 
+        Intent backgroundMusic = new Intent(this, BackgroundSoundService.class);
+        startService(backgroundMusic);
+
+        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+        SharedPreferences.Editor editor = sharedSettings.edit();
+
+        editor.putString("level","BEGGAR"); // on set la difficulté au minimum au démarrage de l'appli, à défaut de ne pas avoir changé les préférences
+        editor.commit();
     }
 
     @Override
@@ -45,4 +55,5 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
+
 }

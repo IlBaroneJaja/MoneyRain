@@ -1,14 +1,10 @@
 package be.ecam.moneyrain;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -18,19 +14,24 @@ import android.view.View;
 public class GameView extends View {
     private Player player;
     private Items items;
+    private int lives;
+    private int score;
+    private String level;
     private boolean firstLoad = true;
     public static Resources res;
 
     public GameView(Context context, AttributeSet aSet) {
         super(context, aSet);
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics); // donne les dimensions actuelles (dynamique) du device
         this.res = getResources();
+
     }
 
     private void initElements(Canvas canvas){
+
         items = new Items(canvas);
-        player = new Player(new Point(canvas.getWidth(), canvas.getHeight()), new Point(0, 0), new Point(5, 0));
+        items.setLevel(this.getLevel());
+        player = new Player(new Point(canvas.getWidth(), canvas.getHeight()), new Point(0, 0), new Point(6, 0));
+        player.setLives(5);
         firstLoad = false;
     }
 
@@ -40,6 +41,8 @@ public class GameView extends View {
         else {
             player.move();
             items.update(player);
+            setLives(player.getLives());
+            setScore(player.getScore());
             invalidate();
         }
     }
@@ -66,5 +69,31 @@ public class GameView extends View {
             items.draw(canvas);
             player.draw(canvas);
         }
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

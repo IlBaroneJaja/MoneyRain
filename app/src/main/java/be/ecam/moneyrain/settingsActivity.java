@@ -12,7 +12,11 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements View.OnClickListener{
+
+    private Button btn_level;
+    private Button btn_reset;
+    private Switch switch_sound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,31 +2,42 @@ package be.ecam.moneyrain;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameActivity extends AppCompatActivity {
 
     private GameView mGameView;
     private Handler frameHandler;
     private static final int FRAME_RATE = 16;
-    private String level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        mGameView = (GameView) findViewById(R.id.gameview);
 
-        frameHandler = new Handler();
         SharedPreferences settings = getSharedPreferences("sharedSettings",0);
-        level = settings.getString("level","BEGGAR"); // le 2e string est là au cas où les préférences n'ont pas été initialisiées.
-        Toast.makeText(this,level,Toast.LENGTH_LONG).show();
+        String level = settings.getString("level", "BEGGAR");
+        mGameView = (GameView) findViewById(R.id.gameview);
+        mGameView.setLevel(level);
+        mGameView.setLives(5);
+        frameHandler = new Handler();
+
+        TextView tvLives = (TextView) findViewById(R.id.tvLives);
+        tvLives.setText(Integer.toString(mGameView.getLives()));
+
+        Toast.makeText(this, level,Toast.LENGTH_LONG).show();
         final TextView letsgo = (TextView) findViewById(R.id.letsGO);
         letsgo.setAlpha(0f);
         letsgo.setVisibility(View.VISIBLE);
@@ -47,7 +58,6 @@ public class GameActivity extends AppCompatActivity {
                                 });
                     }
                 });
-
         frame();
     }
 
@@ -61,9 +71,32 @@ public class GameActivity extends AppCompatActivity {
 
     private void frame() {
         mGameView.next();
+        TextView tvLives = (TextView) findViewById(R.id.tvLives);
+        TextView tvScore = (TextView) findViewById(R.id.tvScore);
 
-        //make a new frame() call in FRAME_RATE millisecond
-        frameHandler.postDelayed(frameUpdate, FRAME_RATE);
+        tvLives.setText(Integer.toString(mGameView.getLives()));
+        tvScore.setText(Integer.toString(mGameView.getScore()));
+        if (mGameView.getLives() > 0)
+        {
+            //make a new frame() call in FRAME_RATE millisecond
+            frameHandler.postDelayed(frameUpdate, FRAME_RATE);
+        }
+        else
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle("Game has ended");
+            builder.setMessage("You lost with a score of"+mGameView.getScore());
+            builder.setCancelable(false).setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    Intent intent = new Intent(GameActivity.this, StartUpActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 
     //hide system UI

@@ -3,12 +3,15 @@ package be.ecam.moneyrain;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.widget.TextView;
 
 /**
  * Created by aurel on 13/04/2016.
  */
-public class Player extends Movable {
+public class Player extends Movable  {
     private boolean pushing;
+    private int lives;
+    private int score;
 
     public Player(Point screenSize, Point position, Point speed){
         super(screenSize, position, speed);
@@ -51,9 +54,37 @@ public class Player extends Movable {
         Point itemPos = new Point(item.getPosition());
         Point itemSize = new Point(item.getImageSize());
 
-        if( itemPos.y+itemSize.y > position.y && itemPos.x+itemSize.x > position.x && itemPos.x < (position.x+imageSize.x) )
+        if( itemPos.y+itemSize.y > position.y && itemPos.x+itemSize.x > position.x && itemPos.x < (position.x+imageSize.x) ) {
+            switch(item.getImageID())
+            {
+                case R.drawable.bombesmall:
+                    setLives(getLives()-1);
+                    break;
+                case R.drawable.piecesmall:
+                    incrementScore(10);
+                    break;
+                case R.drawable.billetsmall:
+                    incrementScore(100);
+            }
             return true;
+        }
         else
             return false;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void incrementScore(int score) {
+        this.score += score;
     }
 }

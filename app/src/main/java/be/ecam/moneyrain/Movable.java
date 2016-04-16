@@ -1,6 +1,7 @@
 package be.ecam.moneyrain;
 
 import android.content.res.Resources;
+import android.graphics.Canvas;
 import android.graphics.Point;
 
 /**
@@ -9,23 +10,19 @@ import android.graphics.Point;
 public abstract class Movable extends Drawable {
     protected Point speed;
 
-    Movable (Resources res, Point position, Point speed){
-        super(res, position);
+    Movable (Point screenSize, Point position, Point speed){
+        super(screenSize, position);
         this.speed = speed;
     }
 
-    public void move(int width, int height){
-        checkCollision(width, height);
-        position.x += speed.x;
-        position.y += speed.y;
-    }
+    public abstract void move();
 
-    public String checkCollision(int width, int height){
-        if(position.x > width-imageSize.x)
+    protected String checkCollision(){
+        if(position.x > screenSize.x-imageSize.x)
             return "right";
         else if(position.x < 0)
             return "left";
-        else if(position.y > height-imageSize.y)
+        else if(position.y > screenSize.y-imageSize.y)
             return "bottom";
         else if(position.y < 0)
             return "top";

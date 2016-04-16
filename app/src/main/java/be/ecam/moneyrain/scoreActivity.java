@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class scoreActivity extends AppCompatActivity {
+public class ScoreActivity extends AppCompatActivity {
 
     private SharedPreferences prefs;
     public static final String GAME_SCORES = "highScores";

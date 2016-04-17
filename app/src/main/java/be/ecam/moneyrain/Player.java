@@ -9,21 +9,15 @@ import android.widget.TextView;
  * Created by aurel on 13/04/2016.
  */
 public class Player extends Movable  {
-    private boolean pushing;
+    private boolean pushing = false;
     private int lives;
     private int score;
 
     public Player(Point screenSize, Point position, Point speed){
         super(screenSize, position, speed);
-        imageSize = new Point(79, 94);
+        setImage(R.drawable.persosmall);
         this.position.x = screenSize.x/2;
         this.position.y = screenSize.y-imageSize.y;
-        pushing = false;
-    }
-
-    @Override
-    protected void setImage() {
-        image = BitmapFactory.decodeResource(GameView.res,R.drawable.persosmall);
     }
 
     public void move(){

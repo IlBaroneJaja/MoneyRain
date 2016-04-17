@@ -8,6 +8,7 @@
 *.log
 /.idea/workspace.xml
 /.idea/vcs.xml
+/.idea/misc.xml
 local.properties
 .DS_Store
 

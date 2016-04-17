@@ -53,61 +53,59 @@ public class Items {
     }
 
     private void addItem(){
+        if(newItem()) {
+            Random randomPos = new Random();
+            Bitmap image;
 
+            int imageID = getRandomItem();
+            image = BitmapFactory.decodeResource(GameView.res, imageID);
+
+            list.add(new Item(new Point(screenSize.x, screenSize.y),
+                    new Point(randomPos.nextInt(screenSize.x - image.getWidth()), 0),
+                    new Point(0, 5),
+                    imageID));
+        }
+    }
+
+    private int getRandomItem(){
+        Random randomItem = new Random();
+        int itemID = randomItem.nextInt(3);
+        switch (itemID){
+            case 0:
+                return R.drawable.bombesmall;
+            case 1:
+                return R.drawable.billetsmall;
+            case 2:
+                return R.drawable.piecesmall;
+            default:
+                return R.drawable.piecesmall;
+        }
+    }
+
+    private boolean newItem(){
         long currentNanoTime = System.nanoTime();
-        long effectiveSpawnTime = (currentNanoTime-newItemNanoTime)/1000000;
-        long spawnTime;
-        switch(getLevel() != null ? getLevel() : "BEGGAR")
+
+        if( (currentNanoTime-newItemNanoTime)/1000000 > getSpawnTime()){
+            newItemNanoTime = currentNanoTime;
+            return true;
+        }
+        else
+            return false;
+    }
+
+    private int getSpawnTime(){
+        switch(getLevel())
         {
             case "BEGGAR":
-                spawnTime = 1500;
-                break;
+                return  1500;
             case "CASHIER":
-                spawnTime = 1200;
-                break;
+                return 1200;
             case "TRADER":
-                spawnTime = 1000;
-                break;
+                return 1000;
             case "ILLUMINATI":
-                spawnTime = 800;
-                break;
+                return 800;
             default:
-                spawnTime = 1500;
-                break;
-        }
-
-        if( effectiveSpawnTime > spawnTime){
-            Random randomPos = new Random();
-            Random randomItem = new Random();
-
-            Bitmap image;
-            int itemID = randomItem.nextInt(3);
-            int imageID;
-            Point imageSize;
-
-            switch (itemID){
-                case 0:
-                    imageID = R.drawable.bombesmall;
-                    break;
-                case 1:
-                    imageID = R.drawable.billetsmall;
-                    break;
-                case 2:
-                    imageID = R.drawable.piecesmall;
-                    break;
-                default:
-                    imageID = R.drawable.piecesmall;
-            }
-
-            image = BitmapFactory.decodeResource(GameView.res,imageID);
-            imageSize = new Point(image.getWidth(),image.getHeight());
-
-            newItemNanoTime = currentNanoTime;
-            list.add(new Item(new Point(screenSize.x, screenSize.y),
-                    new Point(randomPos.nextInt(screenSize.x-imageSize.x),0),
-                    new Point(0, 5),
-                    imageID,
-                    imageSize));
+                return 1500;
         }
     }
 

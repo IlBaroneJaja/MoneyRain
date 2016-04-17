@@ -15,9 +15,9 @@ public class Player extends Movable  {
 
     public Player(Point screenSize, Point position, Point speed){
         super(screenSize, position, speed);
+        setImage(R.drawable.persosmall);
         this.position.x = screenSize.x/2;
         this.position.y = screenSize.y-imageSize.y;
-        setImage(R.drawable.persosmall);
     }
 
     public void move(){

@@ -23,7 +23,6 @@ public class GameView extends View {
     public GameView(Context context, AttributeSet aSet) {
         super(context, aSet);
         this.res = getResources();
-
     }
 
     private void initElements(Canvas canvas){

@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">Start Game</string>
+    <string name="app_name">Money Rain</string>
+    <string name="start">START</string>
+    <string name="string_play" />
+    <string name="scores">SCORES</string>
+    <string name="string_scores" />
+    <string name="settings">SETTINGS</string>
+    <string name="string_settings" />
+    <string name="levelPrompt">Choose a difficulty</string>
+    <string name="title_activity_score">ScoreActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string-array name="levelArray">
+        <item>BEGGAR</item>
+        <item>CASHIER</item>
+        <item>TRADER</item>
+        <item>ILLUMINATI</item>
+    </string-array>
 </resources>

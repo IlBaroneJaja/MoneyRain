@@ -1,11 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
-    <xyz.lurkin.startgame.GameView
+    <be.ecam.moneyrain.GameView
         android:id="@+id/gameview"
+        android:background="@drawable/background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="135dp"
+        android:layout_gravity="center_horizontal|top" />
+
+    <TextView
+        android:layout_width="284dp"
+        android:layout_height="163dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Let&apos;s go !"
+        android:id="@+id/letsGO"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textColor="#261bc3"
+        android:textSize="25pt"
+        android:textStyle="bold|italic"
+        android:typeface="serif"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:background="#0a25c1"
+        android:id="@+id/scoreLayout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:id="@+id/imageView2"
+            android:src="@drawable/heart"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="x"
+            android:id="@+id/tvX"
+            android:textSize="10pt"
+            android:textColor="#ffffff"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageView2"
+            android:layout_toEndOf="@+id/imageView2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="5"
+            android:textSize="10pt"
+            android:textColor="#ffffff"
+            android:background="#000000"
+            android:id="@+id/tvLives"
+            android:minWidth="60dp"
+            android:minHeight="25dp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:textAlignment="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_alignTop="@+id/tvX"
+            android:layout_toRightOf="@+id/tvX"
+            android:layout_toEndOf="@+id/tvX" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="000000000"
+            android:textSize="10pt"
+            android:textColor="#ffffff"
+            android:background="#000000"
+            android:id="@+id/tvScore"
+            android:minWidth="150dp"
+            android:minHeight="25dp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:textAlignment="center"
+            android:layout_alignTop="@+id/tvLives"
+            android:layout_toLeftOf="@+id/tv$"
+            android:layout_toStartOf="@+id/tv$" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="$"
+            android:textSize="10pt"
+            android:textColor="#ffffff"
+            android:id="@+id/tv$"
+            android:minWidth="30dp"
+            android:minHeight="25dp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:textAlignment="center"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_alignTop="@+id/tvScore"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
 
 </FrameLayout>

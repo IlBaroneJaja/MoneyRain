@@ -49,10 +49,13 @@ public class GameView extends View {
     public boolean onTouchEvent(MotionEvent event){
         if(!firstLoad) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                player.setPushing();
+                if(event.getX() > getWidth()/2)
+                    player.setMove("right");
+                else
+                    player.setMove("left");
                 return true;
             } else if (event.getAction() == MotionEvent.ACTION_UP)
-                player.setPushing();
+                player.setMove("none");
             return super.onTouchEvent(event);
         }
         else

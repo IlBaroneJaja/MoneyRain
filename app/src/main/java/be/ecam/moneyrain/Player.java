@@ -53,12 +53,15 @@ public class Player extends Movable  {
             {
                 case R.drawable.bombesmall:
                     setLives(getLives()-1);
+                    GameActivity.playBomb();
                     break;
                 case R.drawable.piecesmall:
                     incrementScore(10);
+                    GameActivity.playCoin();
                     break;
                 case R.drawable.billetsmall:
                     incrementScore(100);
+                    GameActivity.playCoin();
             }
             return true;
         }

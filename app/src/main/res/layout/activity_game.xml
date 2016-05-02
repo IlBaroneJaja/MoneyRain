@@ -116,4 +116,13 @@
 
     </RelativeLayout>
 
+    <Button
+        android:layout_width="91dp"
+        android:layout_height="40dp"
+        android:id="@+id/btn_back"
+        android:layout_gravity="left|top"
+        android:background="@drawable/menu"
+        android:maxWidth="80px"
+        android:minHeight="34px" />
+
 </FrameLayout>

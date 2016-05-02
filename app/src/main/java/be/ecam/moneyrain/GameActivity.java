@@ -14,17 +14,16 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener{
 
     private GameView mGameView;
     private Handler frameHandler;
     private static final int FRAME_RATE = 16;
+    private Button btn_back;
 
     static SoundPool soundPool;
     SoundPool.Builder soundPoolBuilder;
@@ -36,6 +35,9 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        btn_back = (Button) findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(this);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         createSound();
@@ -105,6 +107,7 @@ public class GameActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int id) {
                     Intent intent = new Intent(GameActivity.this, StartUpActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
 
@@ -113,6 +116,17 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        switch(view.getId())
+        {
+            case R.id. btn_back:
+                Intent intent = new Intent(GameActivity.this, StartUpActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
+    }
     //hide system UI
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {

@@ -16,20 +16,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/tvSettingsTitle"
-        android:width="200dp"
-        android:height="60dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:width="275dp"
+        android:height="100dp"
         android:textColor="#1021be"
         android:textStyle="bold|italic"
         android:textSize="25pt"
         android:textIsSelectable="true"
         android:textAlignment="center"
-        android:typeface="monospace" />
+        android:typeface="normal"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/btn_back"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:minWidth="250dp"
+        android:minHeight="70dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,10 +47,10 @@
         android:textStyle="bold"
         android:typeface="sans"
         android:textSize="8pt"
-        android:layout_below="@+id/tvSettingsTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:autoText="true" />
+
+        android:autoText="true"
+        android:layout_above="@+id/btn_level"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -61,9 +66,8 @@
         android:textSize="10pt"
         android:typeface="sans"
         android:textStyle="bold"
-        android:layout_below="@+id/tvLevel"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="17dp" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -79,10 +83,10 @@
         android:textSize="10pt"
         android:typeface="sans"
         android:textStyle="bold"
-        android:layout_marginTop="17dp"
-        android:layout_below="@+id/tvHighScore"
+        android:layout_above="@+id/switchSound"
         android:layout_alignLeft="@+id/btn_level"
-        android:layout_alignStart="@+id/btn_level" />
+        android:layout_alignStart="@+id/btn_level"
+        android:layout_marginBottom="45dp" />
 
     <Switch
         android:layout_width="wrap_content"
@@ -94,8 +98,7 @@
         android:textStyle="bold"
         android:textColor="#0e16b5"
         android:typeface="normal"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/btn_resetHighScore"
+        android:layout_above="@+id/levelDropDown"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -106,11 +109,10 @@
         android:textAlignment="center"
         android:layout_alignWithParentIfMissing="false"
         android:textColor="#0b11b4"
-        android:backgroundTint="#0f46bb"
         android:textStyle="bold"
         android:typeface="sans"
         android:textSize="8pt"
-        android:layout_centerVertical="true"
+        android:layout_above="@+id/btn_resetHighScore"
         android:layout_centerHorizontal="true" />
 
     <Spinner
@@ -124,9 +126,21 @@
         android:textAlignment="center"
         android:visibility="invisible"
         android:background="#0f23bb"
-        android:layout_below="@+id/tvSettingsTitle"
-        android:layout_toLeftOf="@+id/switchSound"
-        android:layout_toStartOf="@+id/switchSound" />
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/tvHighScore"
+        android:layout_toEndOf="@+id/tvHighScore" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_back"
+        android:layout_gravity="left|top"
+        android:background="@drawable/menu"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:maxWidth="80px"
+        android:minHeight="34px" />
 
 </RelativeLayout>
 

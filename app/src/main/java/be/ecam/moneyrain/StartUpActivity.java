@@ -1,10 +1,10 @@
 package be.ecam.moneyrain;
 
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 
 public class StartUpActivity extends AppCompatActivity implements View.OnClickListener{
@@ -26,6 +26,7 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
         btn_scores.setOnClickListener(this);
         btn_settings.setOnClickListener(this);
 
+
         Intent backgroundMusic = new Intent(this, BackgroundSoundService.class);
         startService(backgroundMusic);
 
@@ -44,14 +45,17 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btn_start:
                 Intent intent = new Intent(StartUpActivity.this, GameActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.btn_scores:
                 intent = new Intent(StartUpActivity.this, ScoreActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.btn_settings:
                 intent = new Intent(StartUpActivity.this, SettingsActivity.class);
                 startActivity(intent);
+                finish();
                 break;
         }
     }

@@ -5,6 +5,10 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -21,6 +25,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private static final int FRAME_RATE = 16;
     private Button btn_back;
 
+    static SoundPool soundPool;
+    SoundPool.Builder soundPoolBuilder;
+    AudioAttributes attributes;
+    AudioAttributes.Builder attributesBuilder;
+    static int soundID_blop, soundID_coin, soundID_bomb, soundID_bonus, soundID_malus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +38,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         btn_back = (Button) findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this);
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        createSound();
+        loadSounds();
 
         SharedPreferences settings = getSharedPreferences("sharedSettings",0);
         String level = settings.getString("level", "BEGGAR");
@@ -126,5 +140,52 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             View.SYSTEM_UI_FLAG_FULLSCREEN |
                             View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
+    }
+
+    protected void createSound(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            //if API >= 21
+            attributesBuilder = new  AudioAttributes.Builder();
+            attributesBuilder.setUsage(AudioAttributes.USAGE_GAME);
+            attributesBuilder.setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION);
+            attributes=attributesBuilder.build();
+
+            soundPoolBuilder=new SoundPool.Builder();
+            soundPoolBuilder.setAudioAttributes(attributes);
+            soundPool = soundPoolBuilder.build();
+        }
+        else{
+            //API <21
+            soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        }
+    }
+
+    protected void loadSounds(){
+        soundID_blop = soundPool.load(this, R.raw.blop, 1);
+        soundID_coin = soundPool.load(this, R.raw.coin, 1);
+        soundID_bomb = soundPool.load(this, R.raw.bomb, 1);
+        soundID_bonus = soundPool.load(this, R.raw.bonus, 1);
+        soundID_malus = soundPool.load(this, R.raw.malus, 1);
+    }
+
+    public static void playBlop() {
+        soundPool.play(soundID_blop, 1, 1, 1, 0, 1);
+    }
+
+    public static void playCoin() {
+        soundPool.play(soundID_coin, 1, 1, 1, 0, 1);
+    }
+
+    public static void playBomb() {
+        soundPool.play(soundID_bomb, 1, 1, 1, 0, 1);
+
+    }
+
+    public static void playBonus() {
+        soundPool.play(soundID_bonus, 1, 1, 1, 0, 1);
+    }
+
+    public static void playMalus() {
+        soundPool.play(soundID_malus, 1, 1, 1, 0, 1);
     }
 }

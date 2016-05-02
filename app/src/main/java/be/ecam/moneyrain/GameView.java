@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -29,7 +31,7 @@ public class GameView extends View {
 
         items = new Items(canvas);
         items.setLevel(this.getLevel());
-        player = new Player(new Point(canvas.getWidth(), canvas.getHeight()), new Point(0, 0), new Point(6, 0));
+        player = new Player(new Point(canvas.getWidth(), canvas.getHeight()), new Point(0, 0), new Point(10, 0));
         player.setLives(5);
         firstLoad = false;
     }
@@ -48,11 +50,32 @@ public class GameView extends View {
 
     public boolean onTouchEvent(MotionEvent event){
         if(!firstLoad) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                player.setPushing();
+            if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN ||
+                    MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_MOVE ||
+                    MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_POINTER_UP ) {
+
+                boolean right = false;
+                boolean left = false;
+
+                for (int i = 0; i<event.getPointerCount();i++){
+                    if(MotionEventCompat.getActionMasked(event) != MotionEvent.ACTION_POINTER_UP || i != event.getActionIndex()){
+                        if((int)MotionEventCompat.getX(event, i) > getWidth()/2)
+                            right = true;
+                        else if ((int)MotionEventCompat.getX(event, i) <= getWidth()/2)
+                            left = true;
+                    }
+                }
+
+                if (right && !left)
+                    player.setMove("right");
+                else if (left && !right)
+                    player.setMove("left");
+
                 return true;
+
             } else if (event.getAction() == MotionEvent.ACTION_UP)
-                player.setPushing();
+                player.setMove("none");
+
             return super.onTouchEvent(event);
         }
         else

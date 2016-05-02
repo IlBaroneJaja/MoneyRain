@@ -9,7 +9,7 @@ import android.widget.TextView;
  * Created by aurel on 13/04/2016.
  */
 public class Player extends Movable  {
-    private boolean pushing = false;
+    private String move = "none";
     private int lives;
     private int score;
 
@@ -21,10 +21,14 @@ public class Player extends Movable  {
     }
 
     public void move(){
-        if (pushing)
+        if (move == "right") {
+            image = BitmapFactory.decodeResource(GameView.res,R.drawable.persosmall);
             moveRight();
-        else
+        }
+        else if (move == "left") {
+            image = BitmapFactory.decodeResource(GameView.res,R.drawable.persosmallreverse);
             moveLeft();
+        }
     }
 
     public void moveRight(){
@@ -37,11 +41,8 @@ public class Player extends Movable  {
             position.x += -speed.x;
     }
 
-    public void setPushing(){
-        if(pushing == true)
-            pushing = false;
-        else
-            pushing = true;
+    public void setMove(String move){
+        this.move = move;
     }
 
     public boolean itemCaught(Item item){
@@ -53,12 +54,15 @@ public class Player extends Movable  {
             {
                 case R.drawable.bombesmall:
                     setLives(getLives()-1);
+                    GameActivity.playBomb();
                     break;
                 case R.drawable.piecesmall:
                     incrementScore(10);
+                    GameActivity.playCoin();
                     break;
                 case R.drawable.billetsmall:
                     incrementScore(100);
+                    GameActivity.playCoin();
             }
             return true;
         }

@@ -18,19 +18,20 @@
         android:id="@+id/highScoreTitle"
         android:width="200dp"
         android:height="50dp"
-        android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="false"
         android:textAlignment="center"
         android:password="false"
         android:phoneNumber="false"
         android:singleLine="true"
         android:textSize="25pt"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:textColor="#0738a0"
+        android:textStyle="bold|italic"
+        android:layout_below="@+id/btn_back"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="#0738a0"
-        android:textStyle="bold|italic" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:typeface="normal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,4 +47,16 @@
         android:textStyle="bold"
         android:textSize="14pt"
         android:textColor="#091ab6" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_back"
+        android:layout_gravity="left|top"
+        android:background="@drawable/menu"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:maxWidth="80px"
+        android:minHeight="34px" />
 </RelativeLayout>

@@ -9,7 +9,7 @@
         android:background="@drawable/background1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="130dp"
         android:layout_gravity="center_horizontal|top" />
 
     <TextView
@@ -29,7 +29,7 @@
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="130dp"
         android:layout_gravity="center_horizontal|bottom"
         android:background="#0a25c1"
         android:id="@+id/scoreLayout">

@@ -6,7 +6,7 @@
 
     <be.ecam.moneyrain.GameView
         android:id="@+id/gameview"
-        android:background="@drawable/background"
+        android:background="@drawable/background4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="135dp"
@@ -16,7 +16,6 @@
         android:layout_width="284dp"
         android:layout_height="163dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Let&apos;s go !"
         android:id="@+id/letsGO"
         android:layout_gravity="center"
         android:textAlignment="center"
@@ -24,7 +23,9 @@
         android:textSize="25pt"
         android:textStyle="bold|italic"
         android:typeface="serif"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:background="@drawable/letsgo"
+        android:autoText="false" />
 
     <RelativeLayout
         android:orientation="horizontal"

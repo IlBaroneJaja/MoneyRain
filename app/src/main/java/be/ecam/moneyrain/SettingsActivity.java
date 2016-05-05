@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener{
 
+    public static final String settings = "sharedSettings";
+    public static final String highScores = "highScores";
+
     private Button btn_level;
     private Button btn_reset;
     private Switch switch_sound;
@@ -51,8 +54,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                         btn_level.setText(spLevel.getItemAtPosition(position).toString());
-                        SharedPreferences settings = getSharedPreferences("sharedSettings",0);
-                        SharedPreferences.Editor editor = settings.edit();
+                        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+                        SharedPreferences.Editor editor = sharedSettings.edit();
                         editor.putString("level",btn_level.getText().toString());
                         editor.commit();
                     }
@@ -65,25 +68,33 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_resetHighScore:
                 Toast.makeText(this,"High score succesfully reset", Toast.LENGTH_LONG).show();
+                SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+                SharedPreferences.Editor editor = sharedSettings.edit();
+                editor.putString(highScores,"");
+                editor.commit();
                 break;
             case R.id.switchSound:
                 if (!switch_sound.isChecked())
                 {
+                    // OFF
                     stopService(new Intent(this, BackgroundSoundService.class));
-                    SharedPreferences sharedSettings = getSharedPreferences("sharedSettings",0);
-                    SharedPreferences.Editor editor = sharedSettings.edit();
+                    sharedSettings = getSharedPreferences("sharedSettings", 0);
+                    editor = sharedSettings.edit();
                     editor.putBoolean("sound",false);
                     editor.commit();
                 }
                 else {
+                    // ON
                     startService(new Intent(this, BackgroundSoundService.class));
-                    SharedPreferences sharedSettings = getSharedPreferences("sharedSettings",0);
-                    SharedPreferences.Editor editor = sharedSettings.edit();
+                    sharedSettings = getSharedPreferences("sharedSettings", 0);
+                    editor = sharedSettings.edit();
                     editor.putBoolean("sound",true);
                     editor.commit();
                 }
+                break;
             case R.id. btn_back:
                 Intent intent = new Intent(SettingsActivity.this, StartUpActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
                 break;

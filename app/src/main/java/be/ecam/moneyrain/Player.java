@@ -1,9 +1,7 @@
 package be.ecam.moneyrain;
 
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Point;
-import android.widget.TextView;
 
 /**
  * Created by aurel on 13/04/2016.

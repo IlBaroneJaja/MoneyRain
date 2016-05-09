@@ -18,13 +18,25 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
 
     private GameView mGameView;
     private Handler frameHandler;
     private static final int FRAME_RATE = 16;
+    public static final String settings = "sharedSettings";
+    public static final String highScores = "highScores";
     private Button btn_back;
 
+
+
+    private int highScore;
     static SoundPool soundPool;
     SoundPool.Builder soundPoolBuilder;
     AudioAttributes attributes;
@@ -43,8 +55,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         createSound();
         loadSounds();
 
-        SharedPreferences settings = getSharedPreferences("sharedSettings",0);
-        String level = settings.getString("level", "BEGGAR");
+        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+        String level = sharedSettings.getString("level", "BEGGAR");
         mGameView = (GameView) findViewById(R.id.gameview);
         mGameView.setLevel(level);
         mGameView.setLives(5);
@@ -99,13 +111,35 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         else
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            // Le jeu a terminé, car l'utilisateur n'a plus de vie
+            if (mGameView.getScore()>0)
+            {
+                SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+                SharedPreferences.Editor editor = sharedSettings.edit();
 
+                DateFormat dateForm = new SimpleDateFormat("dd/mm/yyyy");
+                String dateOutput = dateForm.format(new Date());
+
+                String scores = sharedSettings.getString("highScores", "");
+                if(scores.length()>0){
+                    // des scores sont déjà présents dans la librairie partagée
+                    setHighScore(mGameView.getScore());
+                }
+                else{
+                    // Rien n'a été sauvegardé dans la libraire partagée pour les high Scores, donc on crée un nouveau score
+                    editor.putString(highScores,""+dateOutput+" - "+mGameView.getScore()); // on set la difficulté au minimum au démarrage de l'appli, à défaut de ne pas avoir changé les préférences
+                    editor.commit();
+                }
+
+
+            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Game has ended");
-            builder.setMessage("You lost with a score of"+mGameView.getScore());
+            builder.setMessage("You lost with a score of: "+mGameView.getScore());
             builder.setCancelable(false).setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     Intent intent = new Intent(GameActivity.this, StartUpActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
                 }
@@ -121,8 +155,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         switch(view.getId())
         {
             case R.id. btn_back:
-                Intent intent = new Intent(GameActivity.this, StartUpActivity.class);
+                Intent intent = new Intent(this, StartUpActivity.class);
                 startActivity(intent);
+                frameHandler.removeCallbacks(frameUpdate);
                 finish();
                 break;
         }
@@ -150,7 +185,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             attributesBuilder.setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION);
             attributes=attributesBuilder.build();
 
-            soundPoolBuilder=new SoundPool.Builder();
+            soundPoolBuilder = new SoundPool.Builder();
             soundPoolBuilder.setAudioAttributes(attributes);
             soundPool = soundPoolBuilder.build();
         }
@@ -187,5 +222,39 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public static void playMalus() {
         soundPool.play(soundID_malus, 1, 1, 1, 0, 1);
+    }
+
+    public int getHighScore() {
+        return highScore;
+    }
+
+    public void setHighScore(int highScore) {
+
+        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+        List<Score> scoreStrings = new ArrayList<>();
+        String scores = sharedSettings.getString("highScores", "");
+        String[] exScores = scores.split("\\|");
+
+        for(String eSc : exScores){
+            String[] parts = eSc.split(" - ");
+            scoreStrings.add(new Score(parts[0], Integer.parseInt(parts[1])));
+        }
+
+        DateFormat dateForm = new SimpleDateFormat("dd/mm/yyyy");
+        String dateOutput = dateForm.format(new Date());
+        Score newScore = new Score(dateOutput,highScore);
+        scoreStrings.add(newScore);
+        Collections.sort(scoreStrings);
+
+        StringBuilder scoreBuild = new StringBuilder("");
+        for(int s=0; s<scoreStrings.size(); s++){
+            if(s>=10) break; // seulement 10 HS
+            if(s>0) scoreBuild.append("|"); // La barre verticale sépare les scores au sein du string
+            scoreBuild.append(scoreStrings.get(s).getScoreText());
+        }
+
+        SharedPreferences.Editor editor = sharedSettings.edit();
+        editor.putString(highScores, scoreBuild.toString());
+        editor.commit();
     }
 }

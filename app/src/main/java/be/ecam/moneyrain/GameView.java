@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 

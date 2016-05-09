@@ -15,17 +15,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/tvSettingsTitle"
         android:width="275dp"
         android:height="100dp"
-        android:textColor="#1021be"
-        android:textStyle="bold|italic"
-        android:textSize="25pt"
-        android:textIsSelectable="true"
-        android:textAlignment="center"
-        android:typeface="normal"
+        android:textIsSelectable="false"
         android:layout_marginTop="28dp"
         android:layout_below="@+id/btn_back"
         android:layout_centerHorizontal="true"
@@ -34,7 +27,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:minWidth="250dp"
-        android:minHeight="70dp" />
+        android:minHeight="70dp"
+        android:background="@drawable/settings"
+        android:maxWidth="300dp"
+        android:maxHeight="80dp" />
 
     <TextView
         android:layout_width="wrap_content"

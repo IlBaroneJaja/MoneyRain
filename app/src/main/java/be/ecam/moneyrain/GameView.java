@@ -1,6 +1,7 @@
 package be.ecam.moneyrain;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Point;
@@ -24,6 +25,8 @@ public class GameView extends View {
     public GameView(Context context, AttributeSet aSet) {
         super(context, aSet);
         this.res = getResources();
+        level = getLevel();
+        this.setBackground(res.getDrawable(switchBG()));
     }
 
     private void initElements(Canvas canvas){
@@ -33,6 +36,22 @@ public class GameView extends View {
         player = new Player(new Point(canvas.getWidth(), canvas.getHeight()), new Point(0, 0), new Point(10, 0));
         player.setLives(5);
         firstLoad = false;
+    }
+
+    private int switchBG(){
+        switch(level)
+        {
+            case "BEGGAR":
+                return R.drawable.background1;
+            case "CASHIER":
+                return R.drawable.background2;
+            case "TRADER":
+                return R.drawable.background3;
+            case "ILLUMINATI":
+                return R.drawable.background4;
+            default:
+                return R.drawable.background1;
+        }
     }
 
     public void next() {
@@ -107,8 +126,6 @@ public class GameView extends View {
     public void setScore(int score) {
         this.score = score;
     }
-
-
 
     public String getLevel() {
         return level;

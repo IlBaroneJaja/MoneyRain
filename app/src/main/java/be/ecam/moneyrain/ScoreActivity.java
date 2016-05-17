@@ -34,6 +34,11 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
         btn_back = (Button) findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this);
 
+        Boolean sound = sharedSettings.getBoolean("sound",true);
+        if (sound)
+            startService(new Intent(this, BackgroundSoundService.class));
+
+
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         createSound();
         loadSounds();
@@ -57,6 +62,7 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
                 Intent intent = new Intent(ScoreActivity.this, StartUpActivity.class);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 playBlop();
+                stopService(new Intent(this, BackgroundSoundService.class));
                 startActivity(intent);
                 finish();
                 break;

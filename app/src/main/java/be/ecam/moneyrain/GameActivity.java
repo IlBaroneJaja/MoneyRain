@@ -63,6 +63,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mGameView.setLives(5);
         frameHandler = new Handler();
 
+        Boolean sound = sharedSettings.getBoolean("sound",true);
+        if (sound)
+            startService(new Intent(this, BackgroundSoundService.class));
+
+
         TextView tvLives = (TextView) findViewById(R.id.tvLives);
         tvLives.setText(Integer.toString(mGameView.getLives()));
 
@@ -146,8 +151,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
 
+            stopService(new Intent(this, BackgroundSoundService.class));
             AlertDialog dialog = builder.create();
             dialog.show();
+
         }
     }
 

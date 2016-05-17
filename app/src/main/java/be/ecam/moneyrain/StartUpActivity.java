@@ -41,9 +41,13 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
         loadSounds();
 
         Intent backgroundMusic = new Intent(this, BackgroundSoundService.class);
-        startService(backgroundMusic);
 
         SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+        Boolean sound = sharedSettings.getBoolean("sound",true);
+        if (sound)
+            startService(backgroundMusic);
+
+        //SharedPreferences sharedSettings = getSharedPreferences(settings,0);
         SharedPreferences.Editor editor = sharedSettings.edit();
 
         editor.putString("level","BEGGAR"); // on set la difficulté au minimum au démarrage de l'appli, à défaut de ne pas avoir changé les préférences
@@ -59,20 +63,23 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
                 Intent intent = new Intent(this, GameActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 playBonus();
+                stopService(new Intent(this, BackgroundSoundService.class));
                 startActivity(intent);
                 finish();
                 break;
             case R.id.btn_scores:
                 intent = new Intent(StartUpActivity.this, ScoreActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 playBonus();
+                stopService(new Intent(this, BackgroundSoundService.class));
                 finish();
                 startActivity(intent);
                 break;
             case R.id.btn_settings:
                 intent = new Intent(StartUpActivity.this, SettingsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 playBonus();
+                stopService(new Intent(this, BackgroundSoundService.class));
                 finish();
                 startActivity(intent);
                 break;

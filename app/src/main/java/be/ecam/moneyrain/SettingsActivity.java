@@ -46,13 +46,19 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         switch_sound.setOnClickListener(this);
         btn_back.setOnClickListener(this);
 
+        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+        Boolean sound = sharedSettings.getBoolean("sound",true);
+        if (sound)
+            startService(new Intent(this, BackgroundSoundService.class));
+
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         createSound();
         loadSounds();
 
-        SharedPreferences settings = getSharedPreferences("sharedSettings",0);
-        btn_level.setText(settings.getString("level","BEGGAR"));
 
+        btn_level.setText(sharedSettings.getString("level","BEGGAR"));
+
+        switch_sound.setChecked(sound);
     }
 
     @Override
@@ -110,6 +116,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 Intent intent = new Intent(SettingsActivity.this, StartUpActivity.class);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 playBlop();
+                stopService(new Intent(this, BackgroundSoundService.class));
                 startActivity(intent);
                 finish();
                 break;

@@ -140,7 +140,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Game has ended");
             builder.setMessage("You lost with a score of: "+mGameView.getScore());
-            builder.setCancelable(false).setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+            builder.setCancelable(false).setPositiveButton("MENU", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     Intent intent = new Intent(GameActivity.this, StartUpActivity.class);
 //                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -160,6 +160,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         {
             case R.id. btn_back:
                 Intent intent = new Intent(this, StartUpActivity.class);
+                playBlop();
                 startActivity(intent);
                 frameHandler.removeCallbacks(frameUpdate);
                 finish();
@@ -208,24 +209,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public static void playBlop() {
-        soundPool.play(soundID_blop, 1, 1, 1, 0, 1);
+        soundPool.play(soundID_blop, 0.5f, 0.5f, 1, 0, 1);
+        Log.d("debug", "test playblop");
     }
 
     public static void playCoin() {
-        soundPool.play(soundID_coin, 1, 1, 1, 0, 1);
+        soundPool.play(soundID_coin, 0.4f, 0.4f, 1, 0, 1);
     }
 
     public static void playBomb() {
-        soundPool.play(soundID_bomb, 1, 1, 1, 0, 1);
+        soundPool.play(soundID_bomb, 0.4f, 0.4f, 1, 0, 1);
 
     }
 
     public static void playBonus() {
-        soundPool.play(soundID_bonus, 1, 1, 1, 0, 1);
+        soundPool.play(soundID_bonus, 0.4f, 0.4f, 1, 0, 1);
     }
 
     public static void playMalus() {
-        soundPool.play(soundID_malus, 1, 1, 1, 0, 1);
+        soundPool.play(soundID_malus, 0.4f, 0.4f, 1, 0, 1);
     }
 
     public int getHighScore() {

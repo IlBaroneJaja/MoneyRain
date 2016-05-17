@@ -12,7 +12,7 @@ import android.support.annotation.Nullable;
 public class BackgroundSoundService extends Service {
 
     private static final String TAG = null;
-    int volume = 5; // exprimé en pourcentage de 0 à 100
+    int volume = 20; // exprimé en pourcentage de 0 à 100
     MediaPlayer player;
 
     public IBinder onBind(Intent arg0) {

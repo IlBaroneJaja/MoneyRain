@@ -1,4 +1,4 @@
-﻿package be.ecam.moneyrain;
+package be.ecam.moneyrain;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -42,19 +42,10 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
         Intent backgroundMusic = new Intent(this, BackgroundSoundService.class);
 
 
-        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+        SharedPreferences sharedSettings = getSharedPreferences("sharedSettings",0);
         Boolean sound = sharedSettings.getBoolean("sound",true);
         if (sound)
             startService(backgroundMusic);
-
-        //SharedPreferences sharedSettings = getSharedPreferences(settings,0);
-        SharedPreferences.Editor editor = sharedSettings.edit();
-
-        editor.putString("level","BEGGAR"); // on set la difficulté au minimum au démarrage de l'appli, à défaut de ne pas avoir changé les préférences
-        editor.commit();
-
-        startService(backgroundMusic);
-
     }
 
     @Override

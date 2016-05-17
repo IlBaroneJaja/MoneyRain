@@ -124,9 +124,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 SharedPreferences sharedSettings = getSharedPreferences(settings,0);
                 SharedPreferences.Editor editor = sharedSettings.edit();
 
-                int style = DateFormat.SHORT;
-                DateFormat dateForm;
-                dateForm = DateFormat.getDateInstance(style, Locale.ENGLISH);
+                DateFormat dateForm = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ENGLISH);
                 String dateOutput = dateForm.format(new Date());
 
                 String scores = sharedSettings.getString("highScores", "");
@@ -253,7 +251,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             scoreStrings.add(new Score(parts[0], Integer.parseInt(parts[1])));
         }
 
-        DateFormat dateForm = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat dateForm = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ENGLISH);
         String dateOutput = dateForm.format(new Date());
         Score newScore = new Score(dateOutput,highScore);
         scoreStrings.add(newScore);

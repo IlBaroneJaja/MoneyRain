@@ -1,4 +1,4 @@
-# MoneyRain v0.1
+# MoneyRain v0.2
 
 Android game created by ECAM students in ICT section.
 

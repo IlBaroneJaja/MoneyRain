@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -118,7 +119,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 SharedPreferences sharedSettings = getSharedPreferences(settings,0);
                 SharedPreferences.Editor editor = sharedSettings.edit();
 
-                DateFormat dateForm = new SimpleDateFormat("dd/mm/yyyy");
+                int style = DateFormat.SHORT;
+                DateFormat dateForm;
+                dateForm = DateFormat.getDateInstance(style, Locale.ENGLISH);
                 String dateOutput = dateForm.format(new Date());
 
                 String scores = sharedSettings.getString("highScores", "");

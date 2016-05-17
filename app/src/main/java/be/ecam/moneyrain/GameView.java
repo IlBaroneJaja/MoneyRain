@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.drawable.*;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -20,13 +22,16 @@ public class GameView extends View {
     private int score;
     private String level;
     private boolean firstLoad = true;
+    public static final String settings = "sharedSettings";
     public static Resources res;
 
     public GameView(Context context, AttributeSet aSet) {
         super(context, aSet);
-        this.res = getResources();
-        level = getLevel();
-        this.setBackground(res.getDrawable(switchBG()));
+        SharedPreferences sharedSettings = context.getSharedPreferences(settings,0);
+        level = sharedSettings.getString("level", "BEGGAR");
+        res = getResources();
+        android.graphics.drawable.Drawable background = res.getDrawable(switchBG());
+        this.setBackground(background);
     }
 
     private void initElements(Canvas canvas){

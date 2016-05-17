@@ -9,8 +9,6 @@ import android.graphics.Point;
  * Created by aurel on 14/04/2016.
  */
 public class Item extends Movable {
-    private int imageID;
-
     public Item(Point screenSize, Point position, Point speed, int imageID){
         super(screenSize, position, speed);
         this.imageID = imageID;

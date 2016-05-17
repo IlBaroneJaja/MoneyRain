@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,11 +20,15 @@ public class Items {
     private int score;
     private String level;
     private long newItemNanoTime;
+    private long bombPatternNanoTime;
+    private boolean bombPattern;
 
     public Items(Canvas canvas){
         list = new ArrayList<>();
         this.screenSize = new Point(canvas.getWidth(), canvas.getHeight());
         newItemNanoTime = System.nanoTime();
+        bombPatternNanoTime = System.nanoTime();
+        bombPattern = false;
     }
 
     public void update(Player player){
@@ -36,7 +41,6 @@ public class Items {
                         item.move();
                 } else {
                     setScore(player.getScore());
-//                    setLives(player.getLives());
                     it.remove();
                 }
             }
@@ -62,8 +66,29 @@ public class Items {
 
             list.add(new Item(new Point(screenSize.x, screenSize.y),
                     new Point(randomPos.nextInt(screenSize.x - image.getWidth()), 0),
-                    new Point(0, 5),
+                    new Point(0, getDifficulty("itemSpeed")),
                     imageID));
+        }
+    }
+
+    private void addBombPattern(){
+        Bitmap image = BitmapFactory.decodeResource(GameView.res,  R.drawable.bombesmall);
+        int offset = (screenSize.x%image.getWidth())/2;
+        int elementsNumber = (screenSize.x) / image.getWidth();
+        ArrayList holesPos = new ArrayList();
+        Random randomGen = new Random();
+        int randomPos = randomGen.nextInt(elementsNumber-2);
+        holesPos.add(randomPos);
+        holesPos.add(randomPos+1);
+        holesPos.add(randomPos+2);
+
+        for(int i=0; i<elementsNumber;i++) {
+            if(!holesPos.contains(i)){
+                list.add(new Item(new Point(screenSize.x, screenSize.y),
+                        new Point(i*image.getWidth()+offset, 0),
+                        new Point(0, (int)(1.5*getDifficulty("itemSpeed"))),
+                        R.drawable.bombesmall));
+            }
         }
     }
 
@@ -84,8 +109,19 @@ public class Items {
 
     private boolean newItem(){
         long currentNanoTime = System.nanoTime();
-
-        if( (currentNanoTime-newItemNanoTime)/1000000 > getSpawnTime()){
+        if(bombPattern || (currentNanoTime-bombPatternNanoTime)/1000000 > 10000){
+            if((currentNanoTime-bombPatternNanoTime)/1000000 > 12000) {
+                addBombPattern();
+                bombPattern = true;
+                bombPatternNanoTime = currentNanoTime;
+            }
+            else if((currentNanoTime-bombPatternNanoTime)/1000000 > 2000 && bombPattern == true) {
+                bombPattern = false;
+                bombPatternNanoTime = currentNanoTime;
+            }
+            return false;
+        }
+        else if( (currentNanoTime-newItemNanoTime)/1000000 > getDifficulty("spawnInterval")){
             newItemNanoTime = currentNanoTime;
             return true;
         }
@@ -93,19 +129,31 @@ public class Items {
             return false;
     }
 
-    private int getSpawnTime(){
+    private int getDifficulty(String type){
+        switch(type)
+        {
+            case "spawnInterval":
+                return (int) (1500/getLevelRatio());
+            case "itemSpeed":
+                return  (int)(5*getLevelRatio());
+            default:
+                return 0;
+        }
+    }
+
+    private float getLevelRatio(){
         switch(getLevel())
         {
             case "BEGGAR":
-                return  1500;
+                return  1f;
             case "CASHIER":
-                return 1200;
+                return 1.2f;
             case "TRADER":
-                return 1000;
+                return 1.5f;
             case "ILLUMINATI":
-                return 800;
+                return 2f;
             default:
-                return 1500;
+                return 1f;
         }
     }
 

@@ -16,7 +16,6 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
     private Button btn_start;
     private Button btn_scores;
     private Button btn_settings;
-    public static final String settings = "sharedSettings";
 
     static SoundPool soundPool;
     SoundPool.Builder soundPoolBuilder;
@@ -42,12 +41,6 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
 
         Intent backgroundMusic = new Intent(this, BackgroundSoundService.class);
         startService(backgroundMusic);
-
-        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
-        SharedPreferences.Editor editor = sharedSettings.edit();
-
-        editor.putString("level","BEGGAR"); // on set la difficulté au minimum au démarrage de l'appli, à défaut de ne pas avoir changé les préférences
-        editor.commit();
     }
 
     @Override

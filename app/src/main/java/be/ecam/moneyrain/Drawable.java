@@ -48,4 +48,8 @@ public abstract class Drawable {
     public Point getImageSize(){
         return imageSize;
     }
+
+    public int getImageID(){
+        return imageID;
+    }
 }

@@ -142,7 +142,7 @@ public class Items {
     }
 
     private float getLevelRatio(){
-        switch(getLevel())
+        switch(level)
         {
             case "BEGGAR":
                 return  1f;
@@ -173,10 +173,6 @@ public class Items {
     public void setScore(int score) {
         this.score = score;
     }
-    public String getLevel() {
-        return level;
-    }
-
     public void setLevel(String level) {
         this.level = level;
     }

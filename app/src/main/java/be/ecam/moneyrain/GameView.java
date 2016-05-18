@@ -3,6 +3,8 @@ package be.ecam.moneyrain;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.*;
@@ -24,39 +26,24 @@ public class GameView extends View {
     private boolean firstLoad = true;
     public static final String settings = "sharedSettings";
     public static Resources res;
+    private BgItems bgItems;
 
     public GameView(Context context, AttributeSet aSet) {
         super(context, aSet);
         SharedPreferences sharedSettings = context.getSharedPreferences(settings,0);
         level = sharedSettings.getString("level", "BEGGAR");
         res = getResources();
-        android.graphics.drawable.Drawable background = res.getDrawable(switchBG());
-        this.setBackground(background);
     }
 
     private void initElements(Canvas canvas){
 
         items = new Items(canvas);
-        items.setLevel(this.getLevel());
+        items.setLevel(level);
+        bgItems = new BgItems(canvas);
+        bgItems.setLevel(level);
         player = new Player(new Point(canvas.getWidth(), canvas.getHeight()), new Point(0, 0), new Point(10, 0));
         player.setLives(5);
         firstLoad = false;
-    }
-
-    private int switchBG(){
-        switch(level)
-        {
-            case "BEGGAR":
-                return R.drawable.background1;
-            case "CASHIER":
-                return R.drawable.background2;
-            case "TRADER":
-                return R.drawable.background3;
-            case "ILLUMINATI":
-                return R.drawable.background4;
-            default:
-                return R.drawable.background1;
-        }
     }
 
     public void next() {
@@ -65,6 +52,7 @@ public class GameView extends View {
         else {
             player.move();
             items.update(player);
+            bgItems.update(score);
             setLives(player.getLives());
             setScore(player.getScore());
             invalidate();
@@ -111,6 +99,7 @@ public class GameView extends View {
             initElements(canvas);
         }
         else {
+            bgItems.draw(canvas);
             items.draw(canvas);
             player.draw(canvas);
         }
@@ -130,10 +119,6 @@ public class GameView extends View {
 
     public void setScore(int score) {
         this.score = score;
-    }
-
-    public String getLevel() {
-        return level;
     }
 
     public void setLevel(String level) {

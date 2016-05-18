@@ -6,7 +6,7 @@
 
     <be.ecam.moneyrain.GameView
         android:id="@+id/gameview"
-        android:background="@drawable/background4"
+        android:background="@drawable/background_default"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="130dp"

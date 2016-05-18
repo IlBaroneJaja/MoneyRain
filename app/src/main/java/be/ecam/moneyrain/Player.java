@@ -55,11 +55,11 @@ public class Player extends Movable  {
                     GameActivity.playBomb();
                     break;
                 case R.drawable.piecesmall:
-                    incrementScore(10);
+                    incrementScore(300);
                     GameActivity.playCoin();
                     break;
                 case R.drawable.billetsmall:
-                    incrementScore(100);
+                    incrementScore(400);
                     GameActivity.playCoin();
             }
             return true;

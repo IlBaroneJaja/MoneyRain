@@ -1,11 +1,16 @@
 package be.ecam.moneyrain;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.graphics.drawable.*;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -23,17 +28,23 @@ public class GameView extends View {
     private int score;
     private String level;
     private boolean firstLoad = true;
+    public static final String settings = "sharedSettings";
     public static Resources res;
+    private BgItems bgItems;
 
     public GameView(Context context, AttributeSet aSet) {
         super(context, aSet);
-        this.res = getResources();
+        SharedPreferences sharedSettings = context.getSharedPreferences(settings,0);
+        level = sharedSettings.getString("level", "BEGGAR");
+        res = getResources();
     }
 
     private void initElements(Canvas canvas){
 
         items = new Items(canvas);
-        items.setLevel(this.getLevel());
+        items.setLevel(level);
+        bgItems = new BgItems(canvas);
+        bgItems.setLevel(level);
         player = new Player(new Point(canvas.getWidth(), canvas.getHeight()), new Point(0, 0), new Point(10, 0));
         player.setLives(5);
         firstLoad = false;
@@ -45,6 +56,7 @@ public class GameView extends View {
         else {
             player.move();
             items.update(player);
+            bgItems.update(score);
             setLives(player.getLives());
             setScore(player.getScore());
             invalidate();
@@ -91,6 +103,7 @@ public class GameView extends View {
             initElements(canvas);
         }
         else {
+            bgItems.draw(canvas);
             items.draw(canvas);
             player.draw(canvas);
         }
@@ -125,12 +138,6 @@ public class GameView extends View {
 
     public void setScore(int score) {
         this.score = score;
-    }
-
-
-
-    public String getLevel() {
-        return level;
     }
 
     public void setLevel(String level) {

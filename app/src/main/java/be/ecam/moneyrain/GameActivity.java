@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,12 +25,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
 
     private GameView mGameView;
     private Handler frameHandler;
-    private static final int FRAME_RATE = 16;
+    private static final int FRAME_RATE = 20;
     public static final String settings = "sharedSettings";
     public static final String highScores = "highScores";
     private Button btn_back;
@@ -61,6 +63,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mGameView.setLevel(level);
         mGameView.setLives(5);
         frameHandler = new Handler();
+
+        Boolean sound = sharedSettings.getBoolean("sound",true);
+        if (sound)
+            startService(new Intent(this, BackgroundSoundService.class));
+
 
         TextView tvLives = (TextView) findViewById(R.id.tvLives);
         tvLives.setText(Integer.toString(mGameView.getLives()));
@@ -117,7 +124,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 SharedPreferences sharedSettings = getSharedPreferences(settings,0);
                 SharedPreferences.Editor editor = sharedSettings.edit();
 
-                DateFormat dateForm = new SimpleDateFormat("dd/mm/yyyy");
+                DateFormat dateForm = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ENGLISH);
                 String dateOutput = dateForm.format(new Date());
 
                 String scores = sharedSettings.getString("highScores", "");
@@ -136,7 +143,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Game has ended");
             builder.setMessage("You lost with a score of: "+mGameView.getScore());
-            builder.setCancelable(false).setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+            builder.setCancelable(false).setPositiveButton("MENU", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     Intent intent = new Intent(GameActivity.this, StartUpActivity.class);
 //                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -145,8 +152,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
 
+            stopService(new Intent(this, BackgroundSoundService.class));
             AlertDialog dialog = builder.create();
             dialog.show();
+
         }
     }
 
@@ -156,6 +165,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         {
             case R.id. btn_back:
                 Intent intent = new Intent(this, StartUpActivity.class);
+                playBlop();
                 startActivity(intent);
                 frameHandler.removeCallbacks(frameUpdate);
                 finish();
@@ -216,24 +226,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public static void playBlop() {
-        soundPool.play(soundID_blop, 1, 1, 1, 0, 1);
+        soundPool.play(soundID_blop, 0.5f, 0.5f, 1, 0, 1);
+        Log.d("debug", "test playblop");
     }
 
     public static void playCoin() {
-        soundPool.play(soundID_coin, 1, 1, 1, 0, 1);
+        soundPool.play(soundID_coin, 0.4f, 0.4f, 1, 0, 1);
     }
 
     public static void playBomb() {
-        soundPool.play(soundID_bomb, 1, 1, 1, 0, 1);
+        soundPool.play(soundID_bomb, 0.4f, 0.4f, 1, 0, 1);
 
     }
 
     public static void playBonus() {
-        soundPool.play(soundID_bonus, 1, 1, 1, 0, 1);
+        soundPool.play(soundID_bonus, 0.4f, 0.4f, 1, 0, 1);
     }
 
     public static void playMalus() {
-        soundPool.play(soundID_malus, 1, 1, 1, 0, 1);
+        soundPool.play(soundID_malus, 0.4f, 0.4f, 1, 0, 1);
     }
 
     public int getHighScore() {
@@ -252,7 +263,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             scoreStrings.add(new Score(parts[0], Integer.parseInt(parts[1])));
         }
 
-        DateFormat dateForm = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat dateForm = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ENGLISH);
         String dateOutput = dateForm.format(new Date());
         Score newScore = new Score(dateOutput,highScore);
         scoreStrings.add(newScore);

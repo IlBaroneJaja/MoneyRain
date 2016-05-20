@@ -15,15 +15,18 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static final String settings = "sharedSettings";
     public static final String highScores = "highScores";
 
-    private Button btn_level;
     private Button btn_reset;
     private Switch switch_sound;
     private Button btn_back;
+    private Spinner spLevel = null;
 
     static SoundPool soundPool;
     SoundPool.Builder soundPoolBuilder;
@@ -35,18 +38,39 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        SharedPreferences sharedSettings = getSharedPreferences(settings, 0);
 
-        btn_level = (Button) findViewById(R.id.btn_level);
         btn_reset = (Button) findViewById(R.id.btn_resetHighScore);
         switch_sound = (Switch) findViewById(R.id.switchSound);
         btn_back = (Button) findViewById(R.id.btn_back);
 
-        btn_level.setOnClickListener(this);
         btn_reset.setOnClickListener(this);
         switch_sound.setOnClickListener(this);
         btn_back.setOnClickListener(this);
 
-        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+        spLevel = (Spinner) findViewById(R.id.levelDropDown);
+        List<String> countryValue = Arrays.asList(getResources().getStringArray(R.array.levelArray));
+        String level = sharedSettings.getString("level","BEGGAR");
+        int levelPosition = countryValue.indexOf(level);
+        spLevel.setSelection(levelPosition,false);
+        spLevel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                    String level = adapterView.getItemAtPosition(position).toString();
+                    SharedPreferences sharedSettings = getSharedPreferences(settings, 0);
+                    SharedPreferences.Editor editor = sharedSettings.edit();
+                    editor.putString("level", level);
+                    editor.commit();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+
+        });
+
+        sharedSettings = getSharedPreferences(settings,0);
         Boolean sound = sharedSettings.getBoolean("sound",true);
         if (sound)
             startService(new Intent(this, BackgroundSoundService.class));
@@ -54,9 +78,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         createSound();
         loadSounds();
-
-
-        btn_level.setText(sharedSettings.getString("level","BEGGAR"));
 
         switch_sound.setChecked(sound);
     }
@@ -67,24 +88,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch(view.getId())
         {
-            case R.id.btn_level:
-                final Spinner spLevel = (Spinner) findViewById(R.id.levelDropDown);
+            case R.id.levelDropDown:
                 spLevel.performClick();
-                spLevel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                        btn_level.setText(spLevel.getItemAtPosition(position).toString());
-                        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
-                        SharedPreferences.Editor editor = sharedSettings.edit();
-                        editor.putString("level",btn_level.getText().toString());
-                        editor.commit();
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
                 break;
             case R.id.btn_resetHighScore:
                 Toast.makeText(this,"High score succesfully reset", Toast.LENGTH_LONG).show();
@@ -114,7 +119,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id. btn_back:
                 Intent intent = new Intent(SettingsActivity.this, StartUpActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 playBlop();
                 stopService(new Intent(this, BackgroundSoundService.class));
                 startActivity(intent);

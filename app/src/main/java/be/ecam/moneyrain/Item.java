@@ -1,8 +1,5 @@
 package be.ecam.moneyrain;
 
-import android.content.res.Resources;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Point;
 
 /**

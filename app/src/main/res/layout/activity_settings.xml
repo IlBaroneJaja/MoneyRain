@@ -45,24 +45,7 @@
         android:textSize="8pt"
 
         android:autoText="true"
-        android:layout_above="@+id/btn_level"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="BEGGAR"
-        android:id="@+id/btn_level"
-        android:width="200dp"
-        android:height="50dp"
-        android:textAlignment="center"
-        android:layout_alignWithParentIfMissing="false"
-        android:textColor="#ffffff"
-        android:background="#66C172"
-        android:textSize="10pt"
-        android:typeface="sans"
-        android:textStyle="bold"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/tvSettingsTitle"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -79,10 +62,9 @@
         android:textSize="10pt"
         android:typeface="sans"
         android:textStyle="bold"
-        android:layout_above="@+id/switchSound"
-        android:layout_alignLeft="@+id/btn_level"
-        android:layout_alignStart="@+id/btn_level"
-        android:layout_marginBottom="45dp" />
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/tvHighScore"
+        android:layout_centerHorizontal="true" />
 
     <Switch
         android:layout_width="wrap_content"
@@ -94,8 +76,9 @@
         android:textStyle="bold"
         android:textColor="#66C172"
         android:typeface="normal"
-        android:layout_above="@+id/levelDropDown"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/btn_resetHighScore"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -108,8 +91,9 @@
         android:textStyle="bold"
         android:typeface="sans"
         android:textSize="8pt"
-        android:layout_above="@+id/btn_resetHighScore"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/levelDropDown"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -120,11 +104,20 @@
         android:entries="@array/levelArray"
         android:focusable="true"
         android:textAlignment="center"
-        android:visibility="invisible"
-        android:background="#0f23bb"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/tvHighScore"
-        android:layout_toEndOf="@+id/tvHighScore" />
+        android:visibility="visible"
+        android:background="#66C172"
+        android:text="Select a level"
+        android:width="200dp"
+        android:height="50dp"
+        android:layout_alignWithParentIfMissing="false"
+        android:textColor="#ffffff"
+        android:textSize="10pt"
+        android:typeface="sans"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/tvLevel"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="false" />
 
     <Button
         android:layout_width="wrap_content"

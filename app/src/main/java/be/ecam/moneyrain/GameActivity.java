@@ -162,6 +162,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+    @Override
+    public void onPause(){
+        super.onPause();
+        frameHandler.removeCallbacks(frameUpdate);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+
+
+    }
     //hide system UI
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {

@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import java.io.Serializable;
 
 /**
  * Created by lur on 11-04-16.
@@ -91,6 +95,21 @@ public class GameView extends View {
             player.draw(canvas);
         }
     }
+
+    @Override
+    public Parcelable onSaveInstanceState(){
+        Parcelable superState = super.onSaveInstanceState();
+
+        Bundle state = new Bundle();
+        state.putParcelable("GameViewState",superState);
+        state.putSerializable("items", (Serializable) items);
+        state.putInt("lives",lives);
+        state.putInt("score",score);
+
+        return state;
+    }
+
+
 
     public int getLives() {
         return lives;

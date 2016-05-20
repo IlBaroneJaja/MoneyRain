@@ -49,9 +49,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         btn_back.setOnClickListener(this);
 
         spLevel = (Spinner) findViewById(R.id.levelDropDown);
-        List<String> countryValue = Arrays.asList(getResources().getStringArray(R.array.levelArray));
+        List<String> levelValue = Arrays.asList(getResources().getStringArray(R.array.levelArray));
         String level = sharedSettings.getString("level","BEGGAR");
-        int levelPosition = countryValue.indexOf(level);
+        int levelPosition = levelValue.indexOf(level);
         spLevel.setSelection(levelPosition,false);
         spLevel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

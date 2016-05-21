@@ -166,6 +166,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             case R.id. btn_back:
                 Intent intent = new Intent(this, StartUpActivity.class);
                 playBlop();
+                stopService(new Intent(this, BackgroundSoundService.class));
                 startActivity(intent);
                 frameHandler.removeCallbacks(frameUpdate);
                 finish();

@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -172,6 +171,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
         }
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        frameHandler.removeCallbacks(frameUpdate);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+
+
     }
     //hide system UI
     @Override

@@ -1,6 +1,5 @@
 package be.ecam.moneyrain;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -47,5 +46,9 @@ public abstract class Drawable {
 
     public Point getImageSize(){
         return imageSize;
+    }
+
+    public int getImageID(){
+        return imageID;
     }
 }

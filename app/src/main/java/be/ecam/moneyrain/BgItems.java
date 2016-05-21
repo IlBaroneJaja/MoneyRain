@@ -14,6 +14,10 @@ public class BgItems {
     private Point screenSize;
     private String level;
     private int previousScore;
+    private int[] bgDelayList = {R.drawable.background1_a,
+                           R.drawable.background2_a,
+                           R.drawable.background3_a,
+                           R.drawable.background4_a};
 
     public BgItems(Canvas canvas){
         list = new ArrayList<>();
@@ -103,10 +107,18 @@ public class BgItems {
     }
 
     public void draw(Canvas canvas){
+        BgItem bgDelay = null;
         for (Iterator<BgItem> it = list.iterator(); it.hasNext();) {
             BgItem bgItem = it.next();
-            bgItem.draw(canvas);
+            for(int i = 0; i < bgDelayList.length; i++ ){
+                if(bgDelayList[i] == bgItem.getImageID())
+                    bgDelay = bgItem;
+                else
+                    bgItem.draw(canvas);
+            }
         }
+        if (bgDelay != null)
+            bgDelay.draw(canvas);
     }
 
     public void update(int score){

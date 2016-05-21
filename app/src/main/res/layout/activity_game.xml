@@ -25,7 +25,9 @@
         android:typeface="serif"
         android:visibility="invisible"
         android:background="@drawable/letsgo"
-        android:autoText="false" />
+        android:autoText="false"
+        android:maxWidth="300dp"
+        android:maxHeight="70dp" />
 
     <RelativeLayout
         android:orientation="horizontal"

@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -281,5 +282,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences.Editor editor = sharedSettings.edit();
         editor.putString(highScores, scoreBuild.toString());
         editor.commit();
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        //Arret du servcice musique lorsque l'on clique sur la fleche retour de l'appareil
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            stopService(new Intent(this, BackgroundSoundService.class));
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

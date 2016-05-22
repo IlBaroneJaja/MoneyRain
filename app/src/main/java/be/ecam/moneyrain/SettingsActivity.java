@@ -8,6 +8,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -176,4 +177,13 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         soundPool.play(soundID_malus, 0.4f, 0.4f, 1, 0, 1);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        //Arret du servcice musique lorsque l'on clique sur la fleche retour de l'appareil
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            stopService(new Intent(this, BackgroundSoundService.class));
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

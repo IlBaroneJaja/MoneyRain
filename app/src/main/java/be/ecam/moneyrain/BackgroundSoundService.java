@@ -48,6 +48,7 @@ public class BackgroundSoundService extends Service {
     public void onPause() {
         player.pause();
     }
+
     @Override
     public void onDestroy() {
         player.stop();

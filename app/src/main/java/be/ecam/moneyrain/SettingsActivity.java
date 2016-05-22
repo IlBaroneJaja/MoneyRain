@@ -86,6 +86,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     public void onSaveInstanceState(Bundle savedInstanceState){}
     @Override
     public void onClick(View view) {
+        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+        Boolean sound = sharedSettings.getBoolean("sound",true);
         switch(view.getId())
         {
             case R.id.levelDropDown:
@@ -93,7 +95,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_resetHighScore:
                 Toast.makeText(this,"High score succesfully reset", Toast.LENGTH_LONG).show();
-                SharedPreferences sharedSettings = getSharedPreferences(settings,0);
                 SharedPreferences.Editor editor = sharedSettings.edit();
                 editor.putString(highScores,"");
                 editor.commit();
@@ -119,7 +120,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id. btn_back:
                 Intent intent = new Intent(SettingsActivity.this, StartUpActivity.class);
-                playBlop();
+                if (sound)
+                    playBlop();
                 stopService(new Intent(this, BackgroundSoundService.class));
                 startActivity(intent);
                 finish();

@@ -56,12 +56,15 @@ public class ScoreActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+        Boolean sound = sharedSettings.getBoolean("sound",true);
         switch(view.getId())
         {
             case R.id. btn_back:
                 Intent intent = new Intent(ScoreActivity.this, StartUpActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                playBlop();
+//              intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                if(sound)
+                    playBlop();
                 stopService(new Intent(this, BackgroundSoundService.class));
                 startActivity(intent);
                 finish();

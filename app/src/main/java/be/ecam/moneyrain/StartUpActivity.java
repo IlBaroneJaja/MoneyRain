@@ -51,12 +51,15 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v)
     {
+        SharedPreferences sharedSettings = getSharedPreferences("sharedSettings",0);
+        Boolean sound = sharedSettings.getBoolean("sound",true);
         switch(v.getId())
         {
             case R.id.btn_start:
                 Intent intent = new Intent(this, GameActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                playBonus();
+                if (sound)
+                    playBonus();
                 stopService(new Intent(this, BackgroundSoundService.class));
                 startActivity(intent);
                 finish();
@@ -64,7 +67,8 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btn_scores:
                 intent = new Intent(StartUpActivity.this, ScoreActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                playBonus();
+                if (sound)
+                    playBonus();
                 stopService(new Intent(this, BackgroundSoundService.class));
                 finish();
                 startActivity(intent);
@@ -72,7 +76,8 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btn_settings:
                 intent = new Intent(StartUpActivity.this, SettingsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                playBonus();
+                if (sound)
+                    playBonus();
                 stopService(new Intent(this, BackgroundSoundService.class));
                 finish();
                 startActivity(intent);

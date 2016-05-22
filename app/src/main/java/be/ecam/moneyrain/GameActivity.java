@@ -160,11 +160,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+        Boolean sound = sharedSettings.getBoolean("sound",true);
         switch(view.getId())
         {
             case R.id. btn_back:
                 Intent intent = new Intent(this, StartUpActivity.class);
-                playBlop();
+                if(sound)
+                    playBlop();
                 stopService(new Intent(this, BackgroundSoundService.class));
                 startActivity(intent);
                 frameHandler.removeCallbacks(frameUpdate);
@@ -227,7 +230,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public static void playBlop() {
         soundPool.play(soundID_blop, 0.5f, 0.5f, 1, 0, 1);
-        Log.d("debug", "test playblop");
     }
 
     public static void playCoin() {

@@ -8,6 +8,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -86,6 +87,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     public void onSaveInstanceState(Bundle savedInstanceState){}
     @Override
     public void onClick(View view) {
+        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+        Boolean sound = sharedSettings.getBoolean("sound",true);
         switch(view.getId())
         {
             case R.id.levelDropDown:
@@ -93,7 +96,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_resetHighScore:
                 Toast.makeText(this,"High score succesfully reset", Toast.LENGTH_LONG).show();
-                SharedPreferences sharedSettings = getSharedPreferences(settings,0);
                 SharedPreferences.Editor editor = sharedSettings.edit();
                 editor.putString(highScores,"");
                 editor.commit();
@@ -119,7 +121,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id. btn_back:
                 Intent intent = new Intent(SettingsActivity.this, StartUpActivity.class);
-                playBlop();
+                if (sound)
+                    playBlop();
                 stopService(new Intent(this, BackgroundSoundService.class));
                 startActivity(intent);
                 finish();
@@ -174,4 +177,13 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         soundPool.play(soundID_malus, 0.4f, 0.4f, 1, 0, 1);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        //Arret du servcice musique lorsque l'on clique sur la fleche retour de l'appareil
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            stopService(new Intent(this, BackgroundSoundService.class));
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

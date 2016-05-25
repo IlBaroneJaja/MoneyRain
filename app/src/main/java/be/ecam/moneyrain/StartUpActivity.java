@@ -22,7 +22,7 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
     SoundPool.Builder soundPoolBuilder;
     AudioAttributes attributes;
     AudioAttributes.Builder attributesBuilder;
-    static int soundID_blop, soundID_coin, soundID_bomb, soundID_bonus, soundID_malus;
+    static int soundID_bonus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,32 +105,11 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     protected void loadSounds(){
-        soundID_blop = soundPool.load(this, R.raw.blop, 1);
-        soundID_coin = soundPool.load(this, R.raw.coin, 1);
-        soundID_bomb = soundPool.load(this, R.raw.bomb, 1);
         soundID_bonus = soundPool.load(this, R.raw.bonus, 1);
-        soundID_malus = soundPool.load(this, R.raw.malus, 1);
-    }
-
-    public static void playBlop() {
-        soundPool.play(soundID_blop, 0.5f, 0.5f, 1, 0, 1);
-    }
-
-    public static void playCoin() {
-        soundPool.play(soundID_coin, 0.4f, 0.4f, 1, 0, 1);
-    }
-
-    public static void playBomb() {
-        soundPool.play(soundID_bomb, 0.4f, 0.4f, 1, 0, 1);
-
     }
 
     public static void playBonus() {
         soundPool.play(soundID_bonus, 0.4f, 0.4f, 1, 0, 1);
-    }
-
-    public static void playMalus() {
-        soundPool.play(soundID_malus, 0.4f, 0.4f, 1, 0, 1);
     }
 
     @Override

@@ -14,13 +14,13 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -161,16 +161,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        SharedPreferences sharedSettings = getSharedPreferences(settings,0);
+        Boolean sound = sharedSettings.getBoolean("sound",true);
         switch(view.getId())
         {
             case R.id. btn_back:
                 Intent intent = new Intent(this, StartUpActivity.class);
-                playBlop();
+                if(sound)
+                    playBlop();
+                stopService(new Intent(this, BackgroundSoundService.class));
                 startActivity(intent);
                 frameHandler.removeCallbacks(frameUpdate);
                 finish();
                 break;
         }
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        frameHandler.removeCallbacks(frameUpdate);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+
+
     }
     //hide system UI
     @Override
@@ -215,7 +231,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public static void playBlop() {
         soundPool.play(soundID_blop, 0.5f, 0.5f, 1, 0, 1);
-        Log.d("debug", "test playblop");
     }
 
     public static void playCoin() {
@@ -267,5 +282,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences.Editor editor = sharedSettings.edit();
         editor.putString(highScores, scoreBuild.toString());
         editor.commit();
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        //Arret du servcice musique lorsque l'on clique sur la fleche retour de l'appareil
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            stopService(new Intent(this, BackgroundSoundService.class));
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

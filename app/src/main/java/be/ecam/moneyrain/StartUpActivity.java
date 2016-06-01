@@ -8,6 +8,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -51,12 +52,15 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v)
     {
+        SharedPreferences sharedSettings = getSharedPreferences("sharedSettings",0);
+        Boolean sound = sharedSettings.getBoolean("sound",true);
         switch(v.getId())
         {
             case R.id.btn_start:
                 Intent intent = new Intent(this, GameActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                playBonus();
+                if (sound)
+                    playBonus();
                 stopService(new Intent(this, BackgroundSoundService.class));
                 startActivity(intent);
                 finish();
@@ -64,7 +68,8 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btn_scores:
                 intent = new Intent(StartUpActivity.this, ScoreActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                playBonus();
+                if (sound)
+                    playBonus();
                 stopService(new Intent(this, BackgroundSoundService.class));
                 finish();
                 startActivity(intent);
@@ -72,7 +77,8 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btn_settings:
                 intent = new Intent(StartUpActivity.this, SettingsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                playBonus();
+                if (sound)
+                    playBonus();
                 stopService(new Intent(this, BackgroundSoundService.class));
                 finish();
                 startActivity(intent);
@@ -127,4 +133,12 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
         soundPool.play(soundID_malus, 0.4f, 0.4f, 1, 0, 1);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //Arret du servcice musique lorsque l'on clique sur la fleche retour de l'appareil
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            stopService(new Intent(this, BackgroundSoundService.class));
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

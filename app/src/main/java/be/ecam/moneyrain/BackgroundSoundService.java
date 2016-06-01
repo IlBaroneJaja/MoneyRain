@@ -2,10 +2,8 @@ package be.ecam.moneyrain;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 
 /**
  * Created by Alessandro on 16/04/2016.
@@ -50,6 +48,7 @@ public class BackgroundSoundService extends Service {
     public void onPause() {
         player.pause();
     }
+
     @Override
     public void onDestroy() {
         player.stop();

@@ -1,5 +1,6 @@
 package be.ecam.moneyrain;
 
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 
@@ -46,6 +47,7 @@ public class Player extends Movable  {
     public boolean itemCaught(Item item){
         Point itemPos = new Point(item.getPosition());
         Point itemSize = new Point(item.getImageSize());
+
 
         if( itemPos.y+itemSize.y > position.y && itemPos.x+itemSize.x > position.x && itemPos.x < (position.x+imageSize.x) ) {
             switch(item.getImageID())

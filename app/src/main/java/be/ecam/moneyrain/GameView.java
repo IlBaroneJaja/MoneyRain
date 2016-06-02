@@ -36,7 +36,7 @@ public class GameView extends View {
     }
 
     private void initElements(Canvas canvas){
-
+        ImagesContainer.initImagesSize(new Point(canvas.getWidth(), canvas.getHeight()), level);
         items = new Items(canvas);
         items.setLevel(level);
         bgItems = new BgItems(canvas);

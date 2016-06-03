@@ -31,7 +31,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private GameView mGameView;
     private Handler frameHandler;
-    private static final int FRAME_RATE = 20;
+    private static final int FRAME_RATE = 10;
     public static final String settings = "sharedSettings";
     public static final String highScores = "highScores";
     private Button btn_back;

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.drawable.*;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.MotionEventCompat;
@@ -39,9 +40,8 @@ public class GameView extends View {
         ImagesContainer.initImagesSize(new Point(canvas.getWidth(), canvas.getHeight()), level);
         items = new Items(canvas);
         items.setLevel(level);
-        bgItems = new BgItems(canvas);
-        bgItems.setLevel(level);
-        player = new Player(new Point(canvas.getWidth(), canvas.getHeight()), new Point(0, 0), new Point(10, 0));
+        bgItems = new BgItems(canvas, this, level);
+        player = new Player(new Point(canvas.getWidth(), canvas.getHeight()), new Point(0, 0), new Point(12, 0));
         player.setLives(5);
         firstLoad = false;
     }
@@ -99,7 +99,7 @@ public class GameView extends View {
             initElements(canvas);
         }
         else {
-            bgItems.draw(canvas);
+            //bgItems.draw(canvas);
             items.draw(canvas);
             player.draw(canvas);
         }

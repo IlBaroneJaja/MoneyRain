@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,103 +13,83 @@ import java.util.Iterator;
  * Created by 11293 on 02-05-16.
  */
 public class BgItems {
-    private ArrayList<BgItem> list;
-    private Point screenSize;
+    private GameView gameView;
+   // private ArrayList<BgItem> list;
+   // private Point screenSize;
     private String level;
     private int previousScore;
-    private int[] bgDelayList = {R.drawable.background1_a,
+    /*private int[] bgDelayList = {R.drawable.background1_a,
                            R.drawable.background2_a,
                            R.drawable.background3_a,
-                           R.drawable.background4_a};
+                           R.drawable.background4_a};*/
 
-    public BgItems(Canvas canvas){
-        list = new ArrayList<>();
-        this.screenSize = new Point(canvas.getWidth(), canvas.getHeight());
+    public BgItems(Canvas canvas, GameView gameView, String level){
+        //list = new ArrayList<>();
+        this.level = level;
+        this.gameView = gameView;
+        //this.screenSize = new Point(canvas.getWidth(), canvas.getHeight());
         previousScore = 0;
+        setBackground();
     }
 
-    private int getBgItem(int score){
+    private boolean needUpdate(int score){
         switch(level)
         {
             case "BEGGAR":
                 if(previousScore < 1000 && score >= 1000) {
                     previousScore = 1000;
-                    return R.drawable.background1_a;
+                    return true;
                 }
                 else if(previousScore < 2000 && score >= 2000) {
                     previousScore = 2000;
-                    return R.drawable.background1_b;
-                }
+                    return true;                }
                 else if(previousScore < 3000 && score >= 3000) {
                     previousScore = 3000;
-                    return R.drawable.background1_c;
-                }
+                    return true;                }
                 else
-                return -1;
+                return false;
             case "CASHIER":
                 if(previousScore < 1000 && score >= 1000) {
                     previousScore = 1000;
-                    return R.drawable.background2_a;
-                }
+                    return true;                }
                 else if(previousScore < 2000 && score >= 2000) {
                     previousScore = 2000;
-                    return R.drawable.background2_b;
-                }
+                    return true;                }
                 else if(previousScore < 3000 && score >= 3000) {
                     previousScore = 3000;
-                    return R.drawable.background2_c;
-                }
+                    return true;                }
                 else
-                    return -1;
+                    return false;
             case "TRADER":
                 if(previousScore < 1000 && score >= 1000) {
                     previousScore = 1000;
-                    return R.drawable.background3_a;
-                }
+                    return true;                }
                 else if(previousScore < 2000 && score >= 2000) {
                     previousScore = 2000;
-                    return R.drawable.background3_b;
-                }
+                    return true;                }
                 else if(previousScore < 3000 && score >= 3000) {
                     previousScore = 3000;
-                    return R.drawable.background3_c;
-                }
+                    return true;                }
                 else
-                    return -1;
+                    return false;
             case "ILLUMINATI":
                 if(previousScore < 1000 && score >= 1000) {
                     previousScore = 1000;
-                    return R.drawable.background4_a;
-                }
+                    return true;                }
                 else if(previousScore < 2000 && score >= 2000) {
                     previousScore = 2000;
-                    return R.drawable.background4_b;
-                }
+                    return true;                }
                 else if(previousScore < 3000 && score >= 3000) {
                     previousScore = 3000;
-                    return R.drawable.background4_c;
-                }
+                    return true;                }
                 else
-                    return -1;
+                    return false;
             default:
-                if(previousScore < 1000 && score >= 1000) {
-                    previousScore = 1000;
-                    return R.drawable.background1_a;
-                }
-                else if(previousScore < 2000 && score >= 2000) {
-                    previousScore = 2000;
-                    return R.drawable.background1_b;
-                }
-                else if(previousScore < 3000 && score >= 3000) {
-                    previousScore = 3000;
-                    return R.drawable.background1_c;
-                }
-                else
-                    return -1;
+                return false;
         }
     }
 
-    public void draw(Canvas canvas){
+   /* public void draw(Canvas canvas){
         BgItem bgDelay = null;
         for (Iterator<BgItem> it = list.iterator(); it.hasNext();) {
             BgItem bgItem = it.next();
@@ -121,16 +102,69 @@ public class BgItems {
         }
         if (bgDelay != null)
             bgDelay.draw(canvas);
-    }
+    }*/
 
     public void update(int score){
-        int imageID = getBgItem(score);
-
-        if(imageID != -1) {
-            list.add(new BgItem(new Point(screenSize.x, screenSize.y),
-                    new Point(0, 0),
-                    imageID));
+        if(needUpdate(score)){
+            setBackground();
         }
+    }
+
+    private void setBackground(){
+        Bitmap background = ImagesContainer.getImage(R.drawable.background_default);
+        Bitmap result = Bitmap.createBitmap(background.getWidth(), background.getHeight(), background.getConfig());
+        Canvas canvas = new Canvas(result);
+        canvas.drawBitmap(background, 0, 0, null);
+
+        switch(level)
+        {
+            case "BEGGAR":
+                if(previousScore >= 3000) {
+                    canvas.drawBitmap(ImagesContainer.getImage(R.drawable.background1_c), 0, 0, null);
+                }
+                if(previousScore >= 1000) {
+                    canvas.drawBitmap(ImagesContainer.getImage(R.drawable.background1_a), 0, 0, null);
+                }
+                if(previousScore >= 2000) {
+                    canvas.drawBitmap(ImagesContainer.getImage(R.drawable.background1_b), 0, 0, null);
+                }
+                break;
+            case "CASHIER":
+                if(previousScore >= 3000) {
+                    canvas.drawBitmap(ImagesContainer.getImage(R.drawable.background2_c), 0, 0, null);
+                }
+                if(previousScore >= 1000) {
+                    canvas.drawBitmap(ImagesContainer.getImage(R.drawable.background2_a), 0, 0, null);
+                }
+                if(previousScore >= 2000) {
+                    canvas.drawBitmap(ImagesContainer.getImage(R.drawable.background2_b), 0, 0, null);
+                }
+                break;
+            case "TRADER":
+                if(previousScore >= 3000) {
+                    canvas.drawBitmap(ImagesContainer.getImage(R.drawable.background3_c), 0, 0, null);
+                }
+                if(previousScore >= 1000) {
+                    canvas.drawBitmap(ImagesContainer.getImage(R.drawable.background3_a), 0, 0, null);
+                }
+                if(previousScore >= 2000) {
+                    canvas.drawBitmap(ImagesContainer.getImage(R.drawable.background3_b), 0, 0, null);
+                }
+                break;
+            case "ILLUMINATI":
+                if(previousScore >= 3000) {
+                    canvas.drawBitmap(ImagesContainer.getImage(R.drawable.background4_c), 0, 0, null);
+                }
+                if(previousScore >= 1000) {
+                    canvas.drawBitmap(ImagesContainer.getImage(R.drawable.background4_a), 0, 0, null);
+                }
+                if(previousScore >= 2000) {
+                    canvas.drawBitmap(ImagesContainer.getImage(R.drawable.background4_b), 0, 0, null);
+                }
+                break;
+        }
+
+        gameView.setBackground(new BitmapDrawable(GameView.res, result));
     }
 
     public void setLevel(String level) {

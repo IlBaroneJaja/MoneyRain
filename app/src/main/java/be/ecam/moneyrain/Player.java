@@ -49,7 +49,7 @@ public class Player extends Movable  {
         Point itemSize = new Point(item.getImageSize());
 
 
-        if( itemPos.y+itemSize.y > position.y && itemPos.x+itemSize.x > position.x && itemPos.x < (position.x+imageSize.x) ) {
+        if( itemPos.y+itemSize.y*0.8 > position.y && itemPos.x+itemSize.x*0.8 > position.x && itemPos.x < (position.x+imageSize.x*0.8) ) {
             switch(item.getImageID())
             {
                 case R.drawable.bombesmall:
@@ -57,11 +57,11 @@ public class Player extends Movable  {
                     GameActivity.playBomb();
                     break;
                 case R.drawable.piecesmall:
-                    incrementScore(300);
+                    incrementScore(50);
                     GameActivity.playCoin();
                     break;
                 case R.drawable.billetsmall:
-                    incrementScore(400);
+                    incrementScore(100);
                     GameActivity.playCoin();
             }
             return true;

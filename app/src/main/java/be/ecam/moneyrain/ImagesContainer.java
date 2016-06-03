@@ -22,6 +22,8 @@ public class ImagesContainer {
     static Bitmap playerR;
     static Bitmap playerL;
 
+    static Bitmap bgDefault;
+
     static Bitmap bg1A;
     static Bitmap bg1B;
     static Bitmap bg1C;
@@ -39,6 +41,7 @@ public class ImagesContainer {
     static Bitmap bg4C;
 
     static void initImagesSize(Point screenSize, String level){
+        bgDefault = Bitmap.createScaledBitmap(bgDefault, screenSize.x, screenSize.y, true);
         switch (level) {
             case "BEGGAR":
                 bg1A = Bitmap.createScaledBitmap(bg1A, screenSize.x, screenSize.y, true);
@@ -66,28 +69,33 @@ public class ImagesContainer {
     static void initImages(Resources res) {
         if(load)
             return;
-        
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+
         coin = BitmapFactory.decodeResource(res,R.drawable.piecesmall);
         paper = BitmapFactory.decodeResource(res,R.drawable.billetsmall);
         bomb = BitmapFactory.decodeResource(res,R.drawable.bombesmall);
         playerR = BitmapFactory.decodeResource(res,R.drawable.persosmall);
         playerL = BitmapFactory.decodeResource(res,R.drawable.persosmallreverse);
 
-        bg1A = BitmapFactory.decodeResource(res,R.drawable.background1_a);
-        bg1B = BitmapFactory.decodeResource(res,R.drawable.background1_b);
-        bg1C = BitmapFactory.decodeResource(res,R.drawable.background1_c);
+        bgDefault = BitmapFactory.decodeResource(res,R.drawable.background_default, options);
 
-        bg2A = BitmapFactory.decodeResource(res,R.drawable.background2_a);
-        bg2B = BitmapFactory.decodeResource(res,R.drawable.background2_b);
-        bg2C = BitmapFactory.decodeResource(res,R.drawable.background2_c);
+        bg1A = BitmapFactory.decodeResource(res,R.drawable.background1_a, options);
+        bg1B = BitmapFactory.decodeResource(res,R.drawable.background1_b, options);
+        bg1C = BitmapFactory.decodeResource(res,R.drawable.background1_c, options);
 
-        bg3A = BitmapFactory.decodeResource(res,R.drawable.background3_a);
-        bg3B = BitmapFactory.decodeResource(res,R.drawable.background3_b);
-        bg3C = BitmapFactory.decodeResource(res,R.drawable.background3_c);
+        bg2A = BitmapFactory.decodeResource(res,R.drawable.background2_a, options);
+        bg2B = BitmapFactory.decodeResource(res,R.drawable.background2_b, options);
+        bg2C = BitmapFactory.decodeResource(res,R.drawable.background2_c, options);
 
-        bg4A = BitmapFactory.decodeResource(res,R.drawable.background4_a);
-        bg4B = BitmapFactory.decodeResource(res,R.drawable.background4_b);
-        bg4C = BitmapFactory.decodeResource(res,R.drawable.background4_c);
+        bg3A = BitmapFactory.decodeResource(res,R.drawable.background3_a, options);
+        bg3B = BitmapFactory.decodeResource(res,R.drawable.background3_b, options);
+        bg3C = BitmapFactory.decodeResource(res,R.drawable.background3_c, options);
+
+        bg4A = BitmapFactory.decodeResource(res,R.drawable.background4_a, options);
+        bg4B = BitmapFactory.decodeResource(res,R.drawable.background4_b, options);
+        bg4C = BitmapFactory.decodeResource(res,R.drawable.background4_c, options);
 
         load = true;
     }
@@ -104,6 +112,8 @@ public class ImagesContainer {
                 return playerR;
             case R.drawable.persosmallreverse:
                 return playerL;
+            case R.drawable.background_default:
+                return bgDefault;
             case R.drawable.background1_a:
                 return bg1A;
             case R.drawable.background1_b:

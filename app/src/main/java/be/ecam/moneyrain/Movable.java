@@ -17,7 +17,7 @@ public abstract class Movable extends Drawable {
 
     public abstract void move();
 
-    protected String checkCollision(){
+    public String checkCollision(){
         if(position.x > screenSize.x-imageSize.x)
             return "right";
         else if(position.x < 0)

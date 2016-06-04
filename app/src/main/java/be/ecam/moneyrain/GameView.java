@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.MotionEventCompat;
@@ -27,6 +28,8 @@ public class GameView extends View {
     public static final String settings = "sharedSettings";
     public static Resources res;
     private BgItems bgItems;
+    private Cloud cloudSmall;
+    private Cloud cloudBig;
 
     public GameView(Context context, AttributeSet aSet) {
         super(context, aSet);
@@ -36,13 +39,16 @@ public class GameView extends View {
     }
 
     private void initElements(Canvas canvas){
-
+        Point screenSize = new Point(canvas.getWidth(), canvas.getHeight());
+        ImagesContainer.initImagesSize(new Point(canvas.getWidth(), canvas.getHeight()), level);
+        cloudSmall = new Cloud(screenSize, new PointF(screenSize.x/6, 75), new PointF(0.25f,0), R.drawable.cloudsmall);
+        cloudBig = new Cloud(screenSize, new PointF(screenSize.x/8, 100), new PointF(0.35f,0), R.drawable.cloudbig);
         items = new Items(canvas);
         items.setLevel(level);
-        bgItems = new BgItems(canvas);
-        bgItems.setLevel(level);
-        player = new Player(new Point(canvas.getWidth(), canvas.getHeight()), new Point(0, 0), new Point(10, 0));
+        bgItems = new BgItems(canvas, this, level);
+        player = new Player(screenSize, new PointF(0, 0), new PointF(12, 0));
         player.setLives(5);
+
         firstLoad = false;
     }
 
@@ -50,6 +56,8 @@ public class GameView extends View {
         if(firstLoad)
             invalidate();
         else {
+            cloudSmall.move();
+            cloudBig.move();
             player.move();
             items.update(player);
             bgItems.update(score);
@@ -99,7 +107,8 @@ public class GameView extends View {
             initElements(canvas);
         }
         else {
-            bgItems.draw(canvas);
+            cloudSmall.draw(canvas);
+            cloudBig.draw(canvas);
             items.draw(canvas);
             player.draw(canvas);
         }

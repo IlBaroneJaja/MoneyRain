@@ -3,6 +3,7 @@ package be.ecam.moneyrain;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.graphics.PointF;
 
 /**
  * Created by aurel on 13/04/2016.
@@ -12,7 +13,7 @@ public class Player extends Movable  {
     private int lives;
     private int score;
 
-    public Player(Point screenSize, Point position, Point speed){
+    public Player(Point screenSize, PointF position, PointF speed){
         super(screenSize, position, speed);
         setImage(R.drawable.persosmall);
         this.position.x = screenSize.x/2;
@@ -45,11 +46,11 @@ public class Player extends Movable  {
     }
 
     public boolean itemCaught(Item item){
-        Point itemPos = new Point(item.getPosition());
+        PointF itemPos = item.getPosition();
         Point itemSize = new Point(item.getImageSize());
 
 
-        if( itemPos.y+itemSize.y > position.y && itemPos.x+itemSize.x > position.x && itemPos.x < (position.x+imageSize.x) ) {
+        if( itemPos.y+itemSize.y*0.8 > position.y && itemPos.x+itemSize.x*0.8 > position.x && itemPos.x < (position.x+imageSize.x*0.8) ) {
             switch(item.getImageID())
             {
                 case R.drawable.bombesmall:
@@ -57,11 +58,11 @@ public class Player extends Movable  {
                     GameActivity.playBomb();
                     break;
                 case R.drawable.piecesmall:
-                    incrementScore(300);
+                    incrementScore(50);
                     GameActivity.playCoin();
                     break;
                 case R.drawable.billetsmall:
-                    incrementScore(400);
+                    incrementScore(100);
                     GameActivity.playCoin();
             }
             return true;

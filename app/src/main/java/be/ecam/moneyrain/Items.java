@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.PointF;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,19 +32,17 @@ public class Items {
 
     public void update(Player player){
         addItem();
-        try{
-            for (Iterator<Item> it = list.iterator(); it.hasNext(); ) {
-                Item item = it.next();
-                if (!player.itemCaught(item)) {
-                    if (!(pathFinished(item)))
-                        item.move();
-                } else {
-                    setScore(player.getScore());
+        for (Iterator<Item> it = list.iterator(); it.hasNext(); ) {
+            Item item = it.next();
+            if (!player.itemCaught(item)) {
+                if (item.checkCollision() != "bottom")
+                    item.move();
+                else
                     it.remove();
-                }
+            } else {
+                setScore(player.getScore());
+                it.remove();
             }
-        }
-        catch (Exception e){
         }
     }
 
@@ -63,8 +62,8 @@ public class Items {
             image = BitmapFactory.decodeResource(GameView.res, imageID);
 
             list.add(new Item(new Point(screenSize.x, screenSize.y),
-                    new Point(randomPos.nextInt(screenSize.x - image.getWidth()), 0),
-                    new Point(0, getDifficulty("itemSpeed")),
+                    new PointF(randomPos.nextInt(screenSize.x - image.getWidth()), 0),
+                    new PointF(0, getDifficulty("itemSpeed")),
                     imageID));
         }
     }
@@ -83,8 +82,8 @@ public class Items {
         for(int i=0; i<elementsNumber;i++) {
             if(!holesPos.contains(i)){
                 list.add(new Item(new Point(screenSize.x, screenSize.y),
-                        new Point(i*image.getWidth()+offset, 0),
-                        new Point(0, (int)(1.5*getDifficulty("itemSpeed"))),
+                        new PointF(i*image.getWidth()+offset, 0),
+                        new PointF(0, getDifficulty("itemSpeed")),
                         R.drawable.bombesmall));
             }
         }
@@ -92,16 +91,14 @@ public class Items {
 
     private int getRandomItem(){
         Random randomItem = new Random();
-        int itemID = randomItem.nextInt(3);
+        int itemID = randomItem.nextInt((int) (3*getLevelRatio()));
         switch (itemID){
             case 0:
-                return R.drawable.bombesmall;
+                return R.drawable.piecesmall;
             case 1:
                 return R.drawable.billetsmall;
-            case 2:
-                return R.drawable.piecesmall;
             default:
-                return R.drawable.piecesmall;
+                return R.drawable.bombesmall;
         }
     }
 
@@ -113,7 +110,7 @@ public class Items {
                 bombPattern = true;
                 bombPatternNanoTime = currentNanoTime;
             }
-            else if((currentNanoTime-bombPatternNanoTime)/1000000 > 2000 && bombPattern == true) {
+            else if((currentNanoTime-bombPatternNanoTime)/1000000 > 2000 && bombPattern) {
                 bombPattern = false;
                 bombPatternNanoTime = currentNanoTime;
             }
@@ -127,13 +124,13 @@ public class Items {
             return false;
     }
 
-    private int getDifficulty(String type){
+    private float getDifficulty(String type){
         switch(type)
         {
             case "spawnInterval":
-                return (int) (1500/getLevelRatio());
+                return 1000/getLevelRatio();
             case "itemSpeed":
-                return  (int)(5*getLevelRatio());
+                return 6*getLevelRatio();
             default:
                 return 0;
         }
@@ -145,27 +142,14 @@ public class Items {
             case "BEGGAR":
                 return  1f;
             case "CASHIER":
-                return 1.2f;
-            case "TRADER":
                 return 1.5f;
-            case "ILLUMINATI":
+            case "TRADER":
                 return 2f;
+            case "ILLUMINATI":
+                return 2.5f;
             default:
                 return 1f;
         }
-    }
-
-    private boolean pathFinished(Item item){
-        if(item.getPosition().y > screenSize.y) {
-            list.remove(item);
-            return true;
-        }
-        else
-            return false;
-    }
-
-    public int getScore() {
-        return score;
     }
 
     public void setScore(int score) {

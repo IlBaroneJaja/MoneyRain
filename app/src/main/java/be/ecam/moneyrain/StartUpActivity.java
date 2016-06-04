@@ -27,6 +27,8 @@ public class StartUpActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImagesContainer.initImages(getResources());
+
         setContentView(R.layout.activity_start_up);
 
         btn_start = (Button) findViewById(R.id.btn_start);

@@ -1,13 +1,9 @@
 package be.ecam.moneyrain;
 
-import android.app.Service;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
 
 /**
  * Created by aurel on 02/06/2016.
@@ -21,6 +17,8 @@ public class ImagesContainer {
     static Bitmap bomb;
     static Bitmap playerR;
     static Bitmap playerL;
+    static Bitmap cloudSmall;
+    static Bitmap cloudBig;
 
     static Bitmap bgDefault;
 
@@ -42,6 +40,8 @@ public class ImagesContainer {
 
     static void initImagesSize(Point screenSize, String level){
         bgDefault = Bitmap.createScaledBitmap(bgDefault, screenSize.x, screenSize.y, true);
+        cloudSmall = Bitmap.createScaledBitmap(cloudSmall, screenSize.x/5, screenSize.y/10, true);
+        cloudBig = Bitmap.createScaledBitmap(cloudBig, screenSize.x/3, screenSize.y/7, true);
         switch (level) {
             case "BEGGAR":
                 bg1A = Bitmap.createScaledBitmap(bg1A, screenSize.x, screenSize.y, true);
@@ -78,6 +78,8 @@ public class ImagesContainer {
         bomb = BitmapFactory.decodeResource(res,R.drawable.bombesmall);
         playerR = BitmapFactory.decodeResource(res,R.drawable.persosmall);
         playerL = BitmapFactory.decodeResource(res,R.drawable.persosmallreverse);
+        cloudSmall = BitmapFactory.decodeResource(res,R.drawable.cloudsmall, options);
+        cloudBig = BitmapFactory.decodeResource(res,R.drawable.cloudbig, options);
 
         bgDefault = BitmapFactory.decodeResource(res,R.drawable.background_default, options);
 
@@ -114,6 +116,10 @@ public class ImagesContainer {
                 return playerL;
             case R.drawable.background_default:
                 return bgDefault;
+            case R.drawable.cloudsmall:
+                return cloudSmall;
+            case R.drawable.cloudbig:
+                return cloudBig;
             case R.drawable.background1_a:
                 return bg1A;
             case R.drawable.background1_b:

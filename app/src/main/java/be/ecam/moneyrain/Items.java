@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.PointF;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -61,8 +62,8 @@ public class Items {
             image = BitmapFactory.decodeResource(GameView.res, imageID);
 
             list.add(new Item(new Point(screenSize.x, screenSize.y),
-                    new Point(randomPos.nextInt(screenSize.x - image.getWidth()), 0),
-                    new Point(0, getDifficulty("itemSpeed")),
+                    new PointF(randomPos.nextInt(screenSize.x - image.getWidth()), 0),
+                    new PointF(0, getDifficulty("itemSpeed")),
                     imageID));
         }
     }
@@ -81,8 +82,8 @@ public class Items {
         for(int i=0; i<elementsNumber;i++) {
             if(!holesPos.contains(i)){
                 list.add(new Item(new Point(screenSize.x, screenSize.y),
-                        new Point(i*image.getWidth()+offset, 0),
-                        new Point(0, (int)(1.5*getDifficulty("itemSpeed"))),
+                        new PointF(i*image.getWidth()+offset, 0),
+                        new PointF(0, getDifficulty("itemSpeed")),
                         R.drawable.bombesmall));
             }
         }
@@ -123,13 +124,13 @@ public class Items {
             return false;
     }
 
-    private int getDifficulty(String type){
+    private float getDifficulty(String type){
         switch(type)
         {
             case "spawnInterval":
-                return (int) (1000/getLevelRatio());
+                return 1000/getLevelRatio();
             case "itemSpeed":
-                return (int) (6*getLevelRatio());
+                return 6*getLevelRatio();
             default:
                 return 0;
         }
@@ -149,19 +150,6 @@ public class Items {
             default:
                 return 1f;
         }
-    }
-
-    private boolean pathFinished(Item item){
-        if(item.getPosition().y > screenSize.y) {
-            //list.remove(item);
-            return true;
-        }
-        else
-            return false;
-    }
-
-    public int getScore() {
-        return score;
     }
 
     public void setScore(int score) {

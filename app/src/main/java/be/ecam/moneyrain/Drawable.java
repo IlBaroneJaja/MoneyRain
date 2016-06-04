@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.PointF;
 
 /**
  * Created by aurel on 12/04/2016.
@@ -13,9 +14,9 @@ public abstract class Drawable {
     protected int imageID;
     protected Bitmap image;
     protected Point imageSize;
-    protected Point position;
+    protected PointF position;
 
-    public Drawable(Point screenSize, Point position){
+    public Drawable(Point screenSize, PointF position){
         this.screenSize = screenSize;
         this.position = position;
     }
@@ -29,7 +30,7 @@ public abstract class Drawable {
         canvas.drawBitmap(image, position.x, position.y, null);
     }
 
-    public Point getPosition(){
+    public PointF getPosition(){
         return position;
     }
 
